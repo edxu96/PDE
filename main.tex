@@ -1,0 +1,180 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Partial Differential Equation, 4.0}
+\author{Edward Xu}
+\date{October 2018}
+
+% Package
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[makeroom]{cancel}
+
+% Easylist
+\usepackage[ampersand]{easylist}
+\let\OldEasylist\easylist
+\let\OldEndEasylist\endeasylist
+\renewenvironment{easylist2}{%
+    \OldEasylist%
+    \ListProperties(Progressive*=3ex, Start1=1)%
+}{%
+    \OldEndEasylist%
+}%
+
+% Text Arrow
+\usepackage{textcomp}
+
+% Ensure Floats Stay inside the Section
+\usepackage[section]{placeins}
+
+% Epigraph Setting
+\usepackage{epigraph}
+\setlength{\epigraphwidth}{0.6\textwidth}
+
+% Right Caption of Figure
+% Attention: the names of figures should be space-free
+\usepackage[rightcaption]{sidecap}
+
+% Labeling List
+\usepackage{blindtext}
+\usepackage{scrextend}
+\addtokomafont{labelinglabel}{\sffamily}
+
+% List with less space
+\usepackage{enumitem}
+
+% Left Bar for Quotation
+\usepackage{framed}
+\newenvironment{quotebar}%
+{\begin{leftbar}\begin{quotation}}%
+{\end{quotation}\end{leftbar}}
+
+% Define the Cell of Table
+\usepackage{array}
+\renewcommand{\arraystretch}{2}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+% Layout of the Page
+\usepackage{geometry}
+\geometry{
+ b5paper,
+ total = {176mm, 250mm},
+ left = 10 mm,
+ right = 10 mm,
+ top = 10 mm,
+ bottom = 20 mm
+ }
+
+% Define Syntax Style for Code
+\usepackage{listings}
+\usepackage{color}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% Multi-files Setting for the Project
+\graphicspath{{images/}{../images/}}
+\usepackage{subfiles}
+
+% Main Body of the Project
+\begin{document}
+
+\begin{titlepage}
+    \centering
+        \vspace*{2cm}
+ 
+        \large{\textbf{A brief introduction to}}
+        
+        \vspace{0.5cm}
+        \Large{\textbf{Partial Differential Equation}}
+        
+        \vspace{1cm}
+        \large{Version: 5.2}
+ 
+        \vspace{4cm}
+        \includegraphics[width=0.15\textwidth]{DTU-logo}
+ 
+        \vfill
+        
+        \textbf{Edward J. Xu} \\
+        Energy System Dynamics and Analysis \\
+        Department of Management Engineering \\
+        Technical University of Denmark, Denmark
+        
+        \vspace{1.5cm}
+        
+        December, 2018
+        
+\end{titlepage}
+
+\section{Introduction to PDE}
+\subfile{sections/Introduction_to_PDE}
+\clearpage
+
+\section{Scalar Conservation Laws and Firs Order Equations}
+\subfile{sections/Scalar_Conservation_Laws_and_First_Order_Equations}
+\clearpage
+
+\section{Assignment 1: Traffic Dynamics}
+\subfile{sections/Assignment_1}
+\clearpage
+
+\section{Finite Difference}
+\subfile{sections/FiniteDifference}
+\clearpage
+
+\section{Finite Element Method}
+\subfile{sections/FiniteElementMethod}
+\clearpage
+
+\section{Diffusion}
+\subfile{sections/Diffusion}
+\clearpage
+
+\section{Assignment 2: Diffusion}
+\subfile{sections/Assignment_2}
+\clearpage
+
+\section{The Laplace Equation}
+\subfile{sections/The_Laplace_Equation}
+\clearpage
+
+\section{Assignment 3: The Laplace Equation}
+\subfile{sections/Assignment_3}
+\clearpage
+
+\section{Waves and Vibrations}
+\subfile{sections/Waves_and_Vibrations}
+\clearpage
+
+\section{Assignment 4: Wave and Vibration}
+\subfile{sections/Assignment_4}
+\clearpage
+
+\bibliographystyle{apalike}
+\bibliography{sections/References}
+
+\end{document}
+

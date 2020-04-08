@@ -1,0 +1,330 @@
+\documentclass[../main.tex]{subfiles}
+ 
+\begin{document}
+
+\textbf{DTU01418, Introduction to Partial Differential Equations, Fall 2018}
+
+\subsection{Problem 1.1}
+
+At time $t = 0$ we take a fish out from a refrigerator at absolute temperature $T_{fish,0} = 278.15$ Kelvin (5 degrees Celsius) and throw it into a frying pan filled with cooking oil at absolute temperature $T_{oil} = 473.15$ Kelvin (200 degrees Celsius). The fish is approximately cylindrical in shape, of length $L$ and of an approximately circular cross section with radius $R$. The thermal diffusivity (heat diffusion coefficient) of the fish meat is $D$, and the fish is fully immersed in the cooking oil.
+
+Using a cylindrical coordinate system $(r, \theta, z)$ such that the volume occupied by the fish is given by $0 \leqslant r \leqslant R$, $0 \leqslant \theta < 2 \, \pi$ and $0 \leqslant z \leqslant L$, set up an initial-boundary problem that models the temporal evolution of the temperature profile u within the fish for $t > 0$. Write the PDE in your model explicitly with respect to the above cylindrical coordinate system. Explain your modelling choices and any simplifications you introduce into the model.
+
+\begin{align}
+    \begin{cases}
+        \, u_t - D \, \left(\cfrac{\partial^2 u}{\partial r^2} + \cfrac{1}{r} \, \cfrac{\partial u}{\partial  r} + \cfrac{\partial^2 u}{\partial z^2} \right) = 0 \\
+        \, u_0(r, z) = 278.15 \text{ ,  } 0 \leqslant r \leqslant R \text{ ,  } 0 \leqslant z \leqslant L \\
+        \, u(R, z, t) = 473.15 \text{ ,  } 0 \leqslant z \leqslant L \text{ ,  } t > 0 \\
+        \, u(r, 0, t) = u(r, L, t) = 473.15 \text{ ,  } 0 \leqslant r < R \text{ ,  } t > 0
+    \end{cases} \label{eq:A4_1}
+\end{align}
+
+\subsection{Problem 1.2}
+
+Show that the temperature profile can in cylindrical coordinates be written:
+\begin{equation} \label{eq:A4_2}
+    u(r, z, t) = 473.15 + \sum_{m=1}^{\infty} \, \sum_{n=1}^{\infty} \, C_{mn} \, \exp{(- \mu_{mn} \, D \,t)} \, J_0 \, (\lambda_m \, r / R) \, \sin(n \, \pi \, z / L)
+\end{equation}
+where $(\lambda_m)_{m \in \mathbf{N}}$ is the increasing sequence of positive zeros of the Bessel function $J_0$. Give a formula for the $\mu_{mn}$. You do not need to find the coefficients $C_{mn}$.
+
+\subsubsection{Reduction to Homogeneous Boundary Condition}
+
+To reduce the problem eq.\ref{eq:A4_1} to well posed problem with homogeneous boundary condition, we set:
+\begin{equation} \label{eq:A4_3}
+    u(r, \theta, z, t) = u^{st}(r, \theta, z) - U(r, \theta, z, t)
+\end{equation}
+where $u^{st}(r, \theta, z)$ represents the steady-state solution and $U(r, \theta, z, t)$ represents the transit-state solution.
+
+For steady-state solution $u^{st}(r, \theta, z)$, according to eq.\ref{eq:A4_1} and our assumption:
+\begin{align}
+    \begin{cases} \label{eq:A4_4}
+        \, - D \, \left(\cfrac{\partial^2 u^{st}}{\partial r^2} + \cfrac{1}{r} \, \cfrac{\partial u^{st}}{\partial  r} + \cfrac{\partial^2 u^{st}}{\partial z^2} \right) = 0 \\
+        \, u^{st}(R, z) = 473.15 \text{ ,  } 0 \leqslant z \leqslant L \\
+        \, u^{st}(r, 0) = u^{st}(r, L) = 473.15 \text{ ,  } 0 \leqslant r < R
+    \end{cases}
+\end{align}
+which is a Laplace equation with Dirichlet boundary condition.
+
+According to theorem 3.4 mean value property and theorem 3.7 maximum principle of harmonic function, we get:
+\begin{align}
+    u(R, \theta, z) \leqslant \max_{\partial \Omega}{u} = 473.15 \nonumber \\
+    u(R, \theta, z) \geqslant \min_{\partial \Omega}{u} = 473.15 \nonumber
+\end{align}
+so, we can say:
+\begin{equation} \label{eq:A4_5}
+    u^{st}(R, \theta, z) = 473.15
+\end{equation}
+
+For transit-state solution $U(r, \theta, z, t)$, we have the differential equation with homogeneous Dirichlet boundary condition:
+\begin{align}
+    \begin{cases} \label{eq:A4_6}
+        \, U_t - D \, \left(\cfrac{\partial^2 U}{\partial r^2} + \cfrac{1}{r} \, \cfrac{\partial U}{\partial  r} + \cfrac{\partial^2 U}{\partial z^2} \right) = 0 \\
+        \, U_0(r, z) = 278.15 \text{ ,  } 0 \leqslant r \leqslant R \text{ ,  } 0 \leqslant z \leqslant L \\
+        \, U(R, z, t) = 0 \text{ ,  } 0 \leqslant z \leqslant L \text{ ,  } t > 0 \\
+        \, U(r, 0, t) = U(r, L, t) = 0 \text{ ,  } 0 \leqslant r < R \text{ ,  } t > 0
+    \end{cases}
+\end{align}
+
+\subsubsection{Method of separation of variables}
+
+Now, it's in a position to find an explicit formula for U using the method of separation of variables. The main idea is to exploit the linear nature of the problem constructing the solution by super-position of simpler solutions of the form $P(r) \, Z(z) \, T(t)$ in which the variables $r$, $z$ and $t$ appear in separated form:
+\begin{equation} \label{eq:A4_7}
+    U(r, z, t) = P(r) \, Z(z) \, T(t)
+\end{equation}
+
+For the same reason in Page 72-73, \cite{salsa2016partial}, we get the following solution of $U(r, z, t)$:
+\begin{align}
+    U_{mn}(r, z, t) &= P_m(r) \, Z_n(z) \, T_{mn}(t) \nonumber \\
+    &= J_0(\cfrac{\lambda_m \, r}{R}) \, \sin{(\nu_n \, z)} \, \exp{\left[- D \, (\nu_n^2 + \cfrac{\lambda_m^2}{R^2}) \, t \right]} \label{eq:A4_8} \\
+    U(r, z, t) &= \sum_{m=1}^{\infty} \, \sum_{n=1}^{\infty} \, J_0(\cfrac{\lambda_m \, r}{R}) \, \sin{(\nu_n \, z)} \, \exp{\left[- D \, (\nu_n^2 + \cfrac{\lambda_m^2}{R^2}) \, t \right]} \label{eq:A4_9}
+\end{align}
+with
+\begin{align}
+    J_0(x) &= \sum_{k=0}^{\infty} \, \cfrac{(- 1)^k}{(k !)^2} \, \left(\cfrac{x}{2}\right)^{2 \, k} \label{eq:A4_10} \\
+    \nu_n &= \cfrac{n \, \pi}{L} \label{eq:A4_11}
+\end{align}
+
+So substitute eq.\ref{eq:A4_5} and eq.\ref{eq:A4_9} to eq.\ref{eq:A4_3}, we get:
+\begin{equation} \label{eq:A4_12}
+    u(r, \theta, z, t) = 473.15 - \sum_{m=1}^{\infty} \, \sum_{n=1}^{\infty} \, c_{mn} \, J_0(\cfrac{\lambda_m \, r}{R}) \, \sin{(\nu_n \, z)} \, \exp{\left[- D \, (\nu_n^2 + \cfrac{\lambda_m^2}{R^2}) \, t \right]}
+\end{equation}
+
+Compared with eq.\ref{eq:A4_2}, we find:
+\begin{equation} \label{eq:A4_13}
+    \mu_{mn} = \cfrac{n^2 \, \pi^2}{L^2} + \cfrac{\lambda_m^2}{R^2}
+\end{equation}
+
+\subsection{Problem 2}
+
+Assume a function $u(x, t)$ is in $C^2(\mathbf{R} \times [0, \infty[)$, and satisfies:
+\begin{align}
+    \begin{cases} \label{eq:A4_14}
+        \, u_{tt} - 4 \, u_{xx} = 0 \\
+        \, u(x, 0) = g(x) \\
+        \, u_t(x, 0) = h(x) 
+    \end{cases}
+\end{align}
+which is a Cauchay-Dirichlet problem with a wave equation, and
+\begin{align}
+    g(6) &= 6 \label{eq:A4_15} \\
+    g(2) &= 8 \label{eq:A4_16} \\
+    \int_0^2 \, h(y) \, \mathrm{d} y &= - 12 \label{eq:A4_17} \\
+    \int_0^6 \, h(y) \, \mathrm{d} y &= 8 \label{eq:A4_18}
+\end{align}
+
+Find the value of $u$ for $t = 1$, $x = 4$.
+
+From d'Alembert formula and $c = 2$, we can get the solution for the problem \ref{eq:A4_14}:
+\begin{equation} \label{eq:A4_19}
+    u(x ,t) = \cfrac{1}{2} \, [g(x + 2 \, t) + g(x - 2 \, t)] + \cfrac{1}{4} \, \int_{x - 2 \, t}^{x + 2 \, t} \, h(y) \, \mathrm{d} y
+\end{equation}
+which can also be written in:
+\begin{align}
+    \begin{cases} \label{eq:A4_20}
+        \, u(x ,t) = F(x + 2 \, t) + G(x - 2 \, t) \\
+        \, F(x + 2 \, t) = \cfrac{1}{2} \, g(x + 2 \, t) + \cfrac{1}{4} \, \int_{0}^{x + 2 \, t} \, h(y) \, \mathrm{d} y \\
+        \, G(x + 2 \, t) = \cfrac{1}{2} \, g(x - 2 \, t) - \cfrac{1}{4} \, \int_{0}^{x - 2 \, t} \, h(y) \, \mathrm{d} y
+    \end{cases}
+\end{align}
+
+According to the characteristic parallelogram, we can get:
+\begin{align}
+    \begin{cases} \label{eq:A4_21}
+        \, u(4,1) = F(6) + G(2) \\
+        \, F(6) = \cfrac{1}{2} \, g(6) + \cfrac{1}{4} \, \int_{0}^{6} \, h(y) \, \mathrm{d} y = 5 \\
+        \, G(2) = \cfrac{1}{2} \, g(2) - \cfrac{1}{4} \, \int_{0}^{2} \, h(y) \, \mathrm{d} y = 7
+    \end{cases}
+\end{align}
+and we get:
+\begin{equation} \label{eq:A4_22}
+    u(4,1) = 12
+\end{equation}
+
+\subsection{Problem 3}
+
+Solve the inital-boundary problem with wave equation:
+\begin{align}
+    \begin{cases} \label{eq:A4_23}
+        \, u_{tt} - 9 \, \left(\cfrac{\partial^2 u}{\partial x^2} + \cfrac{\partial^2 u}{\partial y^2}\right) = 0 \text{ ,  } 0 < x < 3 \text{ ,  } 0 < y < 2 \text{ ,  } t > 0 \\
+        u(x, y, 0) = - \sin{(2 \, \pi \, x)} \, \sin{\left(\cfrac{\pi}{4} \, y \right)} \text{ ,  } 0 \leqslant x \leqslant 3 \text{ ,  } 0 \leqslant y \leqslant 2 \\
+        u_t(x, y, 0) = \sin{\left(\cfrac{\pi}{3} \, x \right)} \, \sin{\left(\cfrac{7 \, \pi}{4} \, y \right)} \text{ ,  } 0 \leqslant x \leqslant 3 \text{ ,  } 0 \leqslant y \leqslant 2 \\
+        u(0, y, t) = u(3, y, t) = 0 \text{ ,  } 0 \leqslant y \leqslant 2 \text{ ,  } t \geqslant 0 \\
+        u(x, 0, t) = 0 \text{ ,  } 0 \leqslant x \leqslant 3 \text{ ,  } t \geqslant 0 \\
+        u_y(x, 2, t) = 0 \text{ ,  } 0 \leqslant x \leqslant 3 \text{ ,  } t \geqslant 0
+    \end{cases}
+\end{align}
+
+The square shape of the membrane and the homogeneous boundary conditions suggest the use of the method of separation of variables. Let us seek for a solution under the form:
+\begin{equation} \label{eq:A4_24}
+    u(x, y, t) = v(x, y) \, q(t)
+\end{equation}
+
+By substituting, problem eq.\ref{eq:A4_23} becomes:
+\begin{align}
+    \begin{cases} \label{eq:A4_25}
+        \, q''(t) \, v(x, y) - 3^2 \, q(t) \Delta v(x, y) = 0 \text{ ,  } 0 < x < 3 \text{ ,  } 0 < y < 2 \text{ ,  } t > 0 \\
+        \, q(0) = - \sin{(2 \, \pi \, x)} \, \sin{\left(\cfrac{\pi}{4} \, y \right)} \text{ ,  } 0 \leqslant x \leqslant 3 \text{ ,  } 0 \leqslant y \leqslant 2 \\
+        \, q'(0) = \sin{\left(\cfrac{\pi}{3} \, x \right)} \, \sin{\left(\cfrac{7 \, \pi}{4} \, y \right)} \text{ ,  } 0 \leqslant x \leqslant 3 \text{ ,  } 0 \leqslant y \leqslant 2 \\
+        \, v(0, y) = v(3, y) = 0 \text{ ,  } 0 \leqslant y \leqslant 2 \\
+        \, v(x, 0) = 0 \text{ ,  } 0 \leqslant x \leqslant 3 \\
+        \, v_y(x, 2) = 0 \text{ ,  } 0 \leqslant x \leqslant 3
+    \end{cases}
+\end{align}
+
+The PDE in eq.\ref{eq:A4_25} can written in the following expression, and separation of variables can be applied:
+\begin{equation} \label{eq:A4_26}
+    \cfrac{q''(t)}{3^2 q(t)} = \cfrac{\Delta v(x, y)}{v(x, y)} = A
+\end{equation}
+which means the usual argument -- the left-hand side of the equation depends only on t, while the right-hand side depends only on (x, y) -- leads us to conclude that both sides must equal some constant $A$.
+
+Then we get the ODE problem:
+\begin{align}
+    \begin{cases} \label{eq:A4_27}
+        \, q''(t) - 3^2 \, A \, q(t) = 0 \text{ ,  } t > 0 \\
+        \, q(0) = - \sin{(2 \, \pi \, x)} \, \sin{\left(\cfrac{\pi}{4} \, y \right)} \text{ ,  } 0 \leqslant x \leqslant 3 \text{ ,  } 0 \leqslant y \leqslant 2 \\
+        \, q'(0) = \sin{\left(\cfrac{\pi}{3} \, x \right)} \, \sin{\left(\cfrac{7 \, \pi}{4} \, y \right)} \text{ ,  } 0 \leqslant x \leqslant 3 \text{ ,  } 0 \leqslant y \leqslant 2
+    \end{cases}
+\end{align}
+and eigen-value problem:
+\begin{align}
+    \begin{cases} \label{eq:A4_28}
+        \, \Delta v - A \, v = 0 \text{ ,  } 0 < x < 3 \text{ ,  } 0 < y < 2 \\
+        \, v(0, y) = v(3, y) = 0 \text{ ,  } 0 \leqslant y \leqslant 2 \\
+        \, v(x, 0) = 0 \text{ ,  } 0 \leqslant x \leqslant 3 \\
+        \, v_y(x, 2) = 0 \text{ ,  } 0 \leqslant x \leqslant 3
+    \end{cases}
+\end{align}
+
+And assuming $v(x, y) = X(x) \, Y(y)$, we rewrite the PDE for $v$ in eigen-value problem:
+\begin{equation} \label{eq:A4_29}
+    X''(x) \, Y(y) + X(x) \, Y''(y) = A \, X(x) \, Y(y)
+\end{equation}
+that is the following equation and separation of variables is applied again,
+\begin{equation} \label{eq:A4_30}
+    - \cfrac{X''(x)}{X(x)} = \cfrac{Y''(y)}{Y(y)} - A = C
+\end{equation}
+since the left-hand side of this equation only depends on x, and the right-hand side only depends on y, both sides must equal a constant $C$.
+
+Then we get two eigen-value problems for $X(x)$ and $Y(y)$:
+\begin{align}
+    & \begin{cases} \label{eq:A4_31}
+        \, X''(x) + C \, X(x) = 0 \text{ ,  } 0 < x < 3 \\
+        \, X(0) = X(3) = 0
+    \end{cases} \\
+    & \begin{cases} \label{eq:A4_32}
+        \, Y''(y) - (A + C) \, Y(y) = 0 \text{ ,  } 0 < y < 2 \\
+        \, Y(0) = 0 \\
+        \, Y'(2) = 0
+    \end{cases}
+\end{align}
+
+We have seen the problem eq.\ref{eq:A4_31} before, and we know that only when $C > 0$, it has nontrivial solutions, which is:
+\begin{equation} 
+    X_n(x) = \mathcal{H} \, \sin{\left(\cfrac{n \, \pi}{3} \, x \right)} \text{ ,  } n = 1, 2, 3, ...
+\end{equation}
+
+As for problem eq.\ref{eq:A4_32}, let's first \textbf{assume $(A + C) > 0$}, we get:
+\begin{align}
+    & Y(y) = \mathcal{E} \, \exp{(\sqrt{(A + C)} \, y)} + \mathcal{F} \, \exp{(- \sqrt{(A + C)} \, y)} \\
+    & \begin{cases}
+        \, Y(0) = \mathcal{E} + \mathcal{F} = 0 \text{ , and  } \mathcal{E} \neq 0 \text{ ,  } \mathcal{F} \neq 0 \\
+        \, Y'(2) = \sqrt{(A + C)} \, \left[\mathcal{E} \, \exp{(2 \, \sqrt{(A + C)})} - \mathcal{F} \, \exp{(- 2 \, \sqrt{(A + C)})} \right] = 0 
+    \end{cases}
+\end{align}
+
+So we get:
+\begin{equation}
+    \exp{(2 \, \sqrt{(A + C)})} + \exp{(- 2 \, \sqrt{(A + C)})} = 0
+\end{equation}
+which is not true, because $e^x > 0$ for all $x$.
+
+\textbf{When we assume $(A + C) = 0$}, we get:
+\begin{align}
+    & Y''(y) = 0 \nonumber \\
+    & Y'(y) = \mathcal{E} \nonumber \\
+    & Y(y) = \mathcal{E} x + \mathcal{F} \\
+    & \begin{cases}
+        \, Y(0) = \mathcal{F} = 0 \text{ , and  } \mathcal{E} \neq 0 \\
+        \, Y'(2) = \mathcal{E} = 0
+    \end{cases}
+\end{align}
+which is not true.
+
+\textbf{When we assume $(A + C) < 0$}, so $A < 0$. Then, we set $B = A + C = - \mu^2 $, and get:
+\begin{align}
+    & Y(y) = \mathcal{E} \, \cos{(\mu \, y)} + \mathcal{F} \, \sin{(\mu \, y)} \\
+    & Y'(y) = - \mu \, \mathcal{E} \, \sin{(\mu \, y)} + \mu \, \mathcal{F} \, \cos{(\mu \, y)} \\
+    & \begin{cases}
+        \, Y(0) = \mathcal{E} = 0 \text{ and  } \mathcal{F} \neq 0 \\
+        \, Y'(2) = \mu \, \mathcal{F} \, \cos{(2 \, \mu)} = 0
+    \end{cases}
+\end{align}
+so we get:
+\begin{align}
+    & 2 \, \mu_m = \cfrac{\pi}{2} + m \, \pi \text{ ,  } m = 0, 1, 2, ... \\
+    & \mu_m = \cfrac{(2 \, m + 1) \, \pi}{4} \text{ ,  } m = 0, 1, 2, ... \\
+    & \lambda_m = - \left(\cfrac{(2 \, m + 1) \, \pi}{4} \right)^2 \text{ ,  } m = 0, 1, 2, ...
+\end{align}
+
+So we can get the solution of $Y_m(y)$:
+\begin{equation}
+    Y_m(y) = \mathcal{F} \, \sin{\left(\cfrac{(2 \, m + 1) \, \pi}{4} \, x \right)} \text{ ,  } m = 0, 1, 2, ...
+\end{equation}
+and:
+\begin{align}
+    C_n &= \left(\cfrac{n \, \pi}{3} \right)^2 > 0 \\
+    (A + C)_m &= - \left(\cfrac{(2 \, m + 1) \, \pi}{4} \right)^2 < 0 \\
+    A_{mn} &= - \left(\cfrac{(2 \, m + 1) \, \pi}{4} \right)^2 - \left(\cfrac{n \, \pi}{3} \right)^2 < 0
+\end{align}
+
+So:
+\begin{align}
+    v_{mn} &= X_n(x) \, Y_m(y) \nonumber \\
+    &= \mathcal{J} \, \sin{\left(\cfrac{n \, \pi}{3} \, x \right)} \, \sin{\left(\cfrac{(2 \, m + 1) \, \pi}{4} \, x \right)} \text{ ,  } n = 1, 2, 3, ... \text{ ,  } m = 0, 1, 2, ...
+\end{align}
+
+The general integral of ODE problem eq.\ref{eq:A4_27} is:
+\begin{align}
+    q_{mn}(t) = \mathcal{K} \, \cos{\left[3 \, t \, \sqrt{\left(\cfrac{(2 \, m + 1) \, \pi}{4} \right)^2 + \left(\cfrac{n \, \pi}{3} \right)^2} \right]} + \mathcal{L} \, \sin{\left[3 \, t \, \sqrt{\left(\cfrac{(2 \, m + 1) \, \pi}{4} \right)^2 + \left(\cfrac{n \, \pi}{3} \right)^2} \right]} \\
+    \text{ ,  } n = 1, 2, 3, ... \text{ ,  } m = 0, 1, 2, ... \nonumber
+\end{align}
+
+So, the solution of problem eq.\ref{eq:A4_23}:
+\begin{align}
+    u_{mn}(x, y, t) &= q_{mn}(t) \, v_{mn}(x, y) \nonumber \\
+    = \Bigg\{\mathcal{R} \, \cos{\left[3 \, t \, \sqrt{\left(\cfrac{(2 \, m + 1) \, \pi}{4} \right)^2 + \left(\cfrac{n \, \pi}{3} \right)^2} \right]} &+ \mathcal{S} \, \sin{\left[3 \, t \, \sqrt{\left(\cfrac{(2 \, m + 1) \, \pi}{4} \right)^2 + \left(\cfrac{n \, \pi}{3} \right)^2} \right]} \Bigg\} \nonumber \\
+    \times \sin{\left(\cfrac{n \, \pi}{3} \, x \right)} \, \sin{\left(\cfrac{(2 \, m + 1) \, \pi}{4} \, x \right)} & \text{ ,  } n = 1, 2, 3, ... \text{ ,  } m = 0, 1, 2, ... \\
+    u(x, y, t) &= q(t) \, v(x, y) \nonumber \\
+    = \sum_{m=0}^{\infty} \sum_{n=1}^{\infty} \, \Bigg\{\mathcal{R} \, \cos{\left[3 \, t \, \sqrt{\left(\cfrac{(2 \, m + 1) \, \pi}{4} \right)^2 + \left(\cfrac{n \, \pi}{3} \right)^2} \right]} &+ \mathcal{S} \, \sin{\left[3 \, t \, \sqrt{\left(\cfrac{(2 \, m + 1) \, \pi}{4} \right)^2 + \left(\cfrac{n \, \pi}{3} \right)^2} \right]} \Bigg\} \nonumber \\
+    \times \sin{\left(\cfrac{n \, \pi}{3} \, x \right)} \, \sin{\left(\cfrac{(2 \, m + 1) \, \pi}{4} \, x \right)} & \text{ ,  } n = 1, 2, 3, ... \text{ ,  } m = 0, 1, 2, ...
+\end{align}
+
+\subsubsection{Constants Identification and Solution Validation}
+
+\textcolor{red}{Determine $\mathcal{R}$ and $\mathcal{S}$ via initial condition}
+
+\subsection{Problem 5: Cylindrical Wave}
+
+Let $D$ be the unit disk in $\mathbb{R}^2$ defined in polar coordinates $(r, \theta)$ by $0 \leqslant r < 1$, $\theta \in \mathbb{R}$. Consider the PDE problem:
+\begin{align}
+    \begin{cases} \label{eq:A2_51}
+        \, - \Delta v = \lambda \, v \text{ ,  } x \in D \\
+        \, v = 0 \text{ ,   } x \in \partial D
+    \end{cases}
+\end{align}
+
+Let $J_1$ denote the Bessel function of order 1 and let $\beta_{11}$ denote the first zero of $J_1$. Show that:
+\begin{equation}
+     v(r, \theta) = J_1(\beta_{11} \, r) \, cos(\theta)
+\end{equation}
+satisfies eq.\ref{eq:A2_51} for some $\lambda$. What is $\lambda$?
+
+We can write the Poisson equation in cylindrical coordinates:
+\begin{align}
+    - \Delta v &= \lambda \, v \\
+    - \frac{\partial^2 v}{\partial r^2} - \frac{1}{r} \, \frac{\partial v}{\partial r} &= \lambda v
+\end{align}
+which is Bessel equation of order zero with parameter $\lambda$.
+
+
+\end{document}

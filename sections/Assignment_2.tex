@@ -1,0 +1,283 @@
+\documentclass[../main.tex]{subfiles}
+ 
+\begin{document}
+
+\textbf{DTU01418, Introduction to Partial Differential Equations, Fall 2018}
+
+\subsection{Problem A}
+
+\begin{align}
+    \begin{cases} \label{eq:A2_1}
+        \, u_t - D \, u_{xx} = 0 \\
+        \, u(x,0) = 235 - 7 \, \sin{\frac{\pi \, x}{2 \, L}} + 4 \, \sin{\frac{7 \, \pi \, x}{2 \, L}} \text{ ,  } x \in [0,L] \\
+        \, u(0,t) = 235 \\
+        \, u_x(L,t) = 0
+    \end{cases}
+\end{align}
+
+\subsubsection{1/3, Reduction to Homogeneous Boundary Condition}
+
+To reduce the problem eq.\ref{eq:A2_1} to well posed problem with homogeneous boundary condition, we set:
+\begin{equation} \label{eq:A2_2}
+    u(x,t) = u^{st}(x) - U(x,t)
+\end{equation}
+where $u^{st}(x)$ represents the steady-state solution and $U(x,t)$ represents the transit-state solution.
+
+For steady-state solution $u^{st}(x)$, according to eq.\ref{eq:A2_1} and our assumption:
+\begin{align}
+    \begin{cases} \label{eq:A2_3}
+        \, u^{st}_t(x) - D \, u^{st}_{xx}(x) = 0 \\
+        \, u^{st}(x) = \mathcal{E} \, x + \mathcal{F} \\
+        \, u^{st}(0) = \mathcal{F} = 235 \\
+        \, u^{st}_x(L) = \mathcal{E} = 0
+    \end{cases}
+\end{align}
+
+So, we get:
+\begin{equation} \label{eq:A2_4}
+    u^{st}(x) = 235
+\end{equation}
+
+Then we can get the well posed problem of eq.\ref{eq:A2_1} based on $U(x,t)$:
+\begin{align}
+    & U(x,t) = u^{st}(x) - u(x,t) \\
+    & U_t = \xcancel{u^{st}_t} - u_t \\
+    & U_x = u^{st}_x(x) - u_x = 0 - u_x \\
+    & U_{xx} = - u_{xx} \\
+    & U_t - D \, U_{xx} = - (u_t - D \, u_{xx}) = 0
+\end{align}
+and
+\begin{align}
+    & U(x,0) = u^{st}(x) - u(x,0) = 7 \, \sin{\frac{\pi \, x}{2 \, L}} + 4 \, \sin{\frac{7 \, \pi \, x}{2 \, L}} \text{ ,  } x \in [0,L] \\
+    & U(0,t) = u^{st}(0) - u(0,t) = 235 - 235 = 0 \\
+    & U_x(L,t) = u^{st}_x(L) - u_x(L,t) = 0 - 0 = 0
+\end{align}
+
+Summary, we get the well posed diffusion problem with homogeneous boundary condition:
+\begin{align}
+    \begin{cases}
+        \, U_t - D \, U_{xx} = 0 \\
+        \, U(x,0) = 7 \, \sin{\frac{\pi \, x}{2 \, L}} + 4 \, \sin{\frac{7 \, \pi \, x}{2 \, L}} \text{ ,  } x \in [0,L] \\
+        \, U(0,t) = 0 \\
+        \, U_x(L,t) = 0
+    \end{cases}
+\end{align}
+
+\subsubsection{2/3, Solution by Separation of Variables}
+
+We first make the following assumption:
+\begin{equation} \label{eq:A2_14}
+    U(x,t) = X(x) \, T(t)
+\end{equation}
+
+Then, we get:
+\begin{align}
+    X \, T` - \mathrm{D} X`` \, T &= 0 \nonumber \\
+    \frac{T`}{\mathrm{D} \, T} - \frac{X``}{X} &= 0 \nonumber \\
+    \frac{1}{\mathrm{D}} \, \frac{T`(t)}{T(t)} = \frac{X``}{X} &= \lambda \quad \text{(constant)} \label{eq:A2_15}
+\end{align}
+
+So, we get Eigen-Value Problem:
+\begin{align}
+    \begin{cases} \label{eq:A2_16}
+        \, X``(x) = \lambda \, X(x) \\
+        \, X(0) = 0 \\
+        \, X`(L) = 0
+    \end{cases}
+\end{align}
+and ODE:
+\begin{align}
+    \begin{cases} \label{eq:A2_17}
+        \, T`(t) &= \mathrm{D} \, \lambda \, T(t) \\
+        \, T(0) &= 7 \, \sin{\frac{\pi \, x}{2 \, L}} + 4 \, \sin{\frac{7 \, \pi \, x}{2 \, L}} \text{ ,  } x \in [0,L]
+    \end{cases}
+\end{align}
+
+To solve Eigen-Value Problem:
+
+\textbf{When we assume $\lambda > 0$}:
+\begin{align}
+    \begin{cases} \label{eq:A2_18}
+        \, X(x) = \mathcal{C}_1 \, e^{\sqrt{\lambda} \, x} + \mathcal{C}_2 \, e^{- \sqrt{\lambda} \, x} \\
+        \, X`(x) = \mathcal{C}_1 \, \sqrt{\lambda} \, e^{\sqrt{\lambda} \, x} - \mathcal{C}_2 \, \sqrt{\lambda} \, e^{- \sqrt{\lambda} \, x} \\
+        \, X(0) = \mathcal{C}_1 + \mathcal{C}_2 = 0 \quad \text{and } \mathcal{C}_1 \neq 0 \text{, } \mathcal{C}_2 \neq 0 \\
+        \, X`(L) = \mathcal{C}_1 \, \sqrt{\lambda} \, e^{\sqrt{\lambda} \, L} - \mathcal{C}_2 \, \sqrt{\lambda} \, e^{- \sqrt{\lambda} \, L} = 0
+    \end{cases}
+\end{align}
+
+So, we can say:
+\begin{align}
+    & \mathcal{C}_2 (e^{\sqrt{\lambda} \, L} + e^{- \sqrt{\lambda} \, L}) = 0 \\
+    & e^{\sqrt{\lambda} \, L} + e^{- \sqrt{\lambda} \, L} = 0 \nonumber
+\end{align}
+Because $e^x > 0$, this is not true, so the assumption of $\lambda > 0$ is wrong.
+
+\textbf{When we assume $\lambda = 0$}:
+\begin{align}
+    \begin{cases} \label{eq:A2_9}
+        \, X``(x) = 0 \\
+        \, X`(x) = \mathcal{C}_1 \\
+        \, X(x) = \mathcal{C}_1 \, x + \mathcal{C}_2 \\
+        \, X(0) = \mathcal{C}_2 = 0 \quad \text{ and  }\mathcal{C}_1 \neq 0 \\
+        \, X`(L) = \mathcal{C}_1 = 0
+    \end{cases}
+\end{align}
+This is not true, so the assumption of $\lambda = 0$ is wrong.
+
+\textbf{When we assume $\lambda < 0$}, we set $\lambda = - \mu^2$, $\mu > 0$:
+\begin{align}
+    \begin{cases} \label{eq:A2_10}
+        \, X(x) = \mathcal{C}_1 \, \cos{(\mu \, x)} + \mathcal{C}_2 \, \sin{(\mu \, x)} \\
+        \, X`(x) = - \mu \, \mathcal{C}_1 \, \sin{(\mu \, x)} + \mu \, \mathcal{C}_2 \, \cos{(\mu \, x)} \\
+        \, X(0) = \mathcal{C}_1 = 0 \quad \text{and } \mathcal{C}_2 \neq 0 \\
+        \, X`(L) = - \mu \, \mathcal{C}_1 \, \sin{(\mu \, L)} + \mu \, \mathcal{C}_2 \, \cos{(\mu \, L)} = 0
+    \end{cases}
+\end{align}
+
+So, we can say:
+\begin{align}
+    & \cos{(\mu \, L)} = 0 \text{ ,  } \mu \, L > 0 \\
+    & \mu_m \, L = \frac{\pi}{2} + m \, \pi \text{ ,  } m = 0, 1 \text{, } 2 \text{, ...} \nonumber \\
+    & \mu_m = \frac{(2 \, m + 1) \, \pi}{2 \, L} \text{ ,  } m = 0, 1 \text{, } 2 \text{, ...} \nonumber \\
+    & \lambda_m = - \left(\frac{(2 \, m + 1) \, \pi}{2 \, L}\right)^2 \text{ ,  } m = 0, 1 \text{, } 2 \text{, ...}
+\end{align}
+
+So we can get the solution of $X_m(x)$,
+\begin{equation} \label{eq:A2_24}
+    X_m(x) = \mathcal{C}_2 \, \sin{\left(\frac{(2 \, m + 1) \, \pi}{2 \, L} \, x\right)} \text{ ,  } m = 0, 1 \text{, } 2 \text{, ...}
+\end{equation}
+
+And \textbf{the general solution of $T(t)$} is:
+\begin{align}
+    T_m(t) &= \mathcal{B} \, e^{- \mu_m^2 \, t} \\
+           &= \mathcal{B} \, \exp{\left[- \left(\frac{(2 \, m + 1) \, \pi}{2 \, L}\right)^2 \, t \right]} \text{ ,  } m = 0, 1 \text{, } 2 \text{, ...}
+\end{align}
+
+Then, according to eq.\ref{eq:A2_14}, the solution of $U(x,t)$:
+\begin{align}
+    & U_m(x,t) = \mathcal{C}_2 \, \sin{\left(\frac{(2 \, m + 1) \, \pi}{2 \, L} \, x\right)} \, \mathcal{B} \, \exp{\left[- \left(\frac{(2 \, m + 1) \, \pi}{2 \, L}\right)^2 \, t \right]} \text{ ,  } m = 0, 1 \text{, } 2 \text{, ...} \\
+    & U(x,t) = \sum_{m=0}^{\infty} \, \mathcal{A}_m \,  \sin{\left(\frac{(2 \, m + 1) \, \pi}{2 \, L} \, x\right)} \, \exp{\left[- \left(\frac{(2 \, m + 1) \, \pi}{2 \, L}\right)^2 \, t \right]}
+\end{align}
+
+Then, according to eq.\ref{eq:A2_2} and eq.\ref{eq:A2_4}:
+\begin{align}
+    u(x,t) &= u^{st}(x) - U(x,t) \\
+           &= 235 - \sum_{m=1}^{\infty} \, \mathcal{A}_m \,  \sin{\left(\frac{(2 \, m + 1) \, \pi}{2 \, L} \, x\right)} \, \exp{\left[- \left(\frac{(2 \, m + 1) \, \pi}{2 \, L}\right)^2 \, t \right]} \text{ ,  } \\
+    &\qquad x \in [0,L] \text{ ,  } t > 0
+\end{align}
+
+\subsubsection{3/3, Constants Identification and Solution Validation}
+
+\textcolor{red}{Identify constants via initial condition, and validate the solution.}
+\begin{align}
+    u(x,0) &= 235 - \sum_{m=1}^{\infty} \, \mathcal{A}_m \,  \sin{\left(\frac{(2 \, m + 1) \, \pi}{2 \, L} \, x\right)} \\ 
+    &= 235 - 7 \, \sin{\frac{\pi \, x}{2 \, L}} + 4 \, \sin{\frac{7 \, \pi \, x}{2 \, L}} \text{ ,  } x \in [0,L]
+\end{align}
+
+So we get:
+\begin{align}
+    u(x,t) = 235 - \sum_{m=1}^{\infty} \, \mathcal{A}_m \,  \sin{\left(\frac{(2 \, m + 1) \, \pi}{2 \, L} \, x\right)} \, \exp{\left[- \left(\frac{(2 \, m + 1) \, \pi}{2 \, L}\right)^2 \, t \right]} \text{ ,  } \\
+    \mathcal{A}_0 = 7, \mathcal{A}_3 = - 4, \mathcal{A}_m = 0 \text{ for  } m \neq 0 \text{ or  } 3 \text{ ,  } \nonumber \\
+    x \in [0,L] \text{ ,  } t > 0 \nonumber
+\end{align}
+
+\subsection{Problem B}
+
+Consider the global Cauchy problem:
+\begin{align}
+    \begin{cases}
+        \, u_t - u_{xx} = 0 \quad & x \in \mathbb{R} \text{ ,  } t > 0 \\
+        \, u(x,0) = g_u(x) = 3 \, \cos{x} \quad & x \in \mathbb{R}
+    \end{cases}
+\end{align}
+
+\textbf{Q1}  For what values of $x$ and $t$ (that is, in which domain in the $(x,t) \in \mathbb{R} \times [0,\infty]$ half-plane) are we guaranteed the existence and uniqueness of a Tychonov-class solution of the problem? Explain.
+
+\begin{equation}
+    D = 2
+\end{equation}
+
+Assume that there exist positive numbers $a$ and $c$ such that:
+\begin{equation} \label{eq:A2_33}
+    |g(x)| = 3 \, \cos{x} \leqslant c \, e^{a \, x^2} \quad \text{ for all  } x \in \mathbb{R}
+\end{equation}
+
+To look for the minimum value of $p = c \, e^{a \, x^2}$, we differentiate $p$:
+\begin{equation}
+    p` = 2 \, a \, c \, x \, e^{a \, x^2}
+\end{equation}
+and we find when $x < 0$, $p` < 0$, when $x = 0$, $p` = 0$, and when $x > 0$, $p` > 0$. So $p(0)$ is the minimum values:
+\begin{equation}
+    \min_{x \in \mathbb{R}} c \, e^{a \, x^2} = c
+\end{equation}
+
+And we know that $g(x) = 3 \, \cos{x}$ reaches its maximum value at $x = 2 \, n \, \pi$, and all the maximum values are 3.
+
+Then as long as $c \geqslant 3$, the eq.\ref{eq:A2_33} can be satisfied. And $a > 0$ is the only restriction for $a$. So, the restriction of $T$ is $\frac{1}{4 \, D \, a} = \infty$, which means $t \in (0,\infty)$.
+
+So according to Theorem 2.12, for all $(x,t) \in \mathbb{R} \times [0,\infty]$ half-plane, we can guaranteed the existence and uniqueness of a Tychonov-class solution of the problem.
+
+\textbf{Q2}  Let $u$ be the unique Tychonov-class solution of the problem. Write down an expression for $u$.
+\begin{align}
+    u(x,t) &= \int_{\mathbb{R}} \, \Gamma_\mathrm{D}(x-y,t) \, g(y) \mathrm{d} y \\
+           &= \frac{3}{\sqrt{4 \, \pi \, \mathrm{D} \, t}} \, \int_{\mathbb{R}} \, e^{- \frac{(x-y)^2}{4 \,  \mathrm{D} \, t}} \, \cos{y} \, \mathrm{d} y 
+\end{align}
+
+\textbf{Q3}  Assume $v$ is the Tychonov-class solution of the global Cauchy problem:
+\begin{align}
+   \begin{cases}
+        \, v_t - v_{xx} = 0 \quad & x \in \mathbb{R} \text{ ,  } t > 0 \\
+        \, v(x,0) = g_v(x) = 2 \, \cos{x} \quad & x \in \mathbb{R}
+    \end{cases}
+\end{align}
+
+Estimate the smallest and the largest possible value attained by the difference $u(x, t) - v(x, t)$ for $x \in \mathbb{R}$ and $t > 0$. Explain how you arrived at your estimates.
+
+Due to the linearity of the diffusion equation, the difference $z(x,t) = u(x,t) - v(x,t)$ leads to $z_t - D \, z_{xx} \leqslant 0$ and $z_t - D \, z_{xx} \geqslant 0$, but with $g_z(x) = g_u(x) - g_v(x) = 3 \, \cos{x} - 2 \, \sin{x}$.
+
+Since $z$ is of Tychonov class, Theorem 2.12 shows that $z \in C^{\infty}(\mathbb{R} \times (0,T])$.
+
+Then, according to Theorem 2.16:
+\begin{equation}
+    \sup_{x,t} \, z(x,t) \leqslant \sup_{x,t} \, z(x,0) = \sup_{x,t} \, (3 \, \cos{x} - 2 \, \sin{x}) = \sqrt{13}
+\end{equation}
+and
+\begin{equation}
+    \inf_{x,t} \, z(x,t) \geqslant \inf_{\mathbb{R}} \, z(x,0) = \inf_{x,t} \, (3 \, \cos{x} - 2 \, \sin{x}) = - \sqrt{13}
+\end{equation}
+
+So $(u(x,t) - v(x,t)) \in [-\sqrt{13},\sqrt{13}]$ for $x \in \mathbb{R}$ and $t > 0$.
+
+\subsection{Problem C}
+
+Consider the global Cauchy problem:
+\begin{align}
+    \begin{cases}
+        \, u_t - \frac{1}{2} \, u_{xx} = 0 \quad & x \in \mathbb{R} \text{ ,  } t \in (0,3) \\
+        \, u(x,0) = 4 \, \exp{(1 / 7 \, x^2)} \quad & x \in \mathbb{R}
+    \end{cases}
+\end{align}
+
+(You do not need to evaluate any integrals occurring in the solution.) Are there other solutions to the above problem, and why? Describe in short how you would evaluate/simplify any integrals occurring in your solution.
+
+Assume that there exist positive numbers $a$ and $c$ such that:
+\begin{equation}
+    |g(x)| \leqslant c \, e^{a \, x^2} \quad \text{ for all  } x \in \mathbb{R}
+\end{equation}
+We can solve:
+\begin{align}
+    c &= 4 \\
+    a &= 1 / 7
+\end{align}
+
+Then, we can get:
+\begin{align}
+    3 < T < \frac{1}{4 \, a \, D}
+\end{align}
+
+According to theorem 2.12, the following question is the unique solution:
+\begin{equation}
+    u(x,t) = \int_{\mathbb{R}} \, \Gamma_\mathrm{D}(x-y,t) \, g(y) \mathrm{d} y = \frac{1}{\sqrt{4 \, \pi \, \mathrm{D} \, t}} \, \int_{\mathbb{R}} \, e^{- \frac{(x-y)^2}{4 \,  \mathrm{D} \, t}} \, g(y) \, \mathrm{d} y 
+\end{equation}
+
+\end{document}

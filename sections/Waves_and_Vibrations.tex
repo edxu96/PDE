@@ -1,0 +1,76 @@
+\documentclass[../main.tex]{subfiles}
+ 
+\begin{document}
+
+\subsection{Non-homogeneous Equation, Duhamel's Method}
+
+To solve the non-homogeneous problem:
+\begin{align}
+    \begin{cases} \label{eq:wv1}
+        \, u_{tt} - c^2 \, u_{xx} = f(x,t) \quad & x \in \mathcal{R} \text{ ,  } t > 0 \\
+        \, u(x,0) = 0 \text{ ,  } u_t(x,0) = 0 \quad & x \in \mathcal{R}
+    \end{cases}
+\end{align}
+we use the Duhamel's method (see Subsect. 2.2.8). For $s \geqslant 0$ fixed, let $w = w (x,t;s)$ be the solution of problem:
+\begin{align}
+    \begin{cases} \label{eq:wv2}
+        \, w_{tt}^s - c^2 \, w_{xx}^s = 0 \quad x \in \mathcal{R} \text{ ,  } t > 0 \\
+        \, w^s(x,s) = 0 \quad x \in \mathcal{R} \\
+        \, w_t^s(x,s) = f(x,s)
+    \end{cases}
+\end{align}
+
+Since the wave equation is invariant under (time) translations, from the d'Alembert formula, we get:
+\begin{equation} \label{eq:wv3}
+    w^s(x,t) = \frac{1}{2 \, c} \, \int_{x - c \, (t - s)}^{x + c \, (t - s)} \, f(y,s) \, \mathrm{d} y
+\end{equation}
+
+Then, the solution of eq.\ref{eq:wv1} is given by:
+\begin{align}
+    u(x,t) &= \int_{s = 0}^t \, w^s(x,t) \, \mathrm{d} s \\
+    &= \frac{1}{2 \, c} \, \int_{s = 0}^t \, \mathrm{d} s \, \int_{x - c \, (t - s)}^{x + c \, (t - s)} \, f(y,s) \, \mathrm{d} y \\
+    &= \frac{1}{2 \, c} \, \int_{S_{x,t}} \, f(y,s) \, \mathrm{d} y \, \mathrm{d} s
+\end{align}
+
+where $S_{x,t}$ is the triangular sector in fig. 5.5. In fact, 
+\begin{equation}
+    u(x,0) = \int_{s = 0}^0 \, w^s(x,0) \, \mathrm{d} s = 0
+\end{equation}
+and
+\begin{align}
+    u_t(x,t) &= \lim_{\Delta t \rightarrow 0} \, \frac{1}{\Delta t} \,  \left[\int_{s = 0}^{t + \Delta t} \, w^s(x,t + \Delta t) \, \mathrm{d} s - \int_{s = 0}^{t} \, w^s(x,t) \, \mathrm{d} s \right] \\
+    &= \lim_{\Delta t \rightarrow 0} \, \frac{1}{\Delta t} \, \left[\int_{s = 0}^{t} \, w^s(x,t + \Delta t) \, \mathrm{d} s + \int_{s = t}^{t + \Delta t} \, w^s(x,t + \Delta t) \, \mathrm{d} s - \int_{s = 0}^{t} \, w^s(x,t) \, \mathrm{d} s \right] \\
+    &= \lim_{\Delta t \rightarrow 0} \, \frac{1}{\Delta t} \, \left[\int_{s = 0}^{t} \, w^s(x,t + \Delta t) \, \mathrm{d} s - \int_{s = 0}^{t} \, w^s(x,t) \, \mathrm{d} s \right] + \lim_{\Delta t \rightarrow 0} \, \frac{1}{\Delta t} \, \int_{s = t}^{t + \Delta t} \, w^s(x,t + \Delta t) \, \mathrm{d} s \\
+    &= \lim_{\Delta t \rightarrow 0} \, \frac{1}{\Delta t} \, \int_{s = 0}^{t} \, \left[ w^s(x,t + \Delta t) \, \mathrm{d} s - w^s(x,t)  \right] \, \mathrm{d} s + \lim_{\Delta t \rightarrow 0} \, \frac{1}{\Delta t} \, \int_{s = t}^{t + \Delta t} \, w^s(x,t + \Delta t) \, \mathrm{d} s \\
+    &= \int_{s = 0}^{t} \, \lim_{\Delta t \rightarrow 0} \, \frac{1}{\Delta t} \, \left[ w^s(x,t + \Delta t) \mathrm{d} s - w^s(x,t)  \right] \, \mathrm{d} s + \lim_{\Delta t \rightarrow 0} \, \frac{1}{\Delta t} \, \int_{s = t}^{t + \Delta t} \, w^s(x,t) \, \mathrm{d} s \\
+    &= \int_{s = 0}^{t} \,  w_t^s(x,t) \, \mathrm{d} s + \lim_{\Delta t \rightarrow 0} \, \frac{1}{\Delta t} \, w^t(x,t) \, \int_{s = t}^{t + \Delta t} \, \mathrm{d} s \\
+    &= \int_{s = 0}^{t} \,  w_t^s(x,t) \, \mathrm{d} s + w^t(x,t) \\
+    &= \int_{s = 0}^{t} \,  w_t^s(x,t) \, \mathrm{d} s
+\end{align}
+since $w^t(x,t) = 0$.
+
+Thus
+\begin{equation}
+    u_t(x,0) = \int_{s = 0}^{0} \,  w_t^s(x,0) \mathrm{d} s = 0
+\end{equation}
+
+Moreover,
+\begin{align}
+    u_{tt}(x,t) &= \int_{s = 0}^{t} \,  w_{tt}^s(x,t) \, \mathrm{d} s + w_t^t(x,t) \\
+    &= \int_{s = 0}^{t} \,  w_{tt}^s(x,t) \, \mathrm{d} s + f(x,t) \\
+    u_{xx}(x,t) &= \frac{\partial^2}{\partial x^2} \, \int_{s = 0}^t \, w^s(x,t) \, \mathrm{d} s \\
+    &= \int_{s = 0}^{t} \,  w_{xx}^s(x,t) \, \mathrm{d} s
+\end{align}
+
+Therefore,
+\begin{align}
+    u_{tt} - c^2 \, u_{xx} &= f(x,t) + \int_{s = 0}^{t} \,  w_{tt}^s(x,t) \, \mathrm{d} s - c^2 \, \int_{s = 0}^{t} \,  w_{xx}^s(x,t) \, \mathrm{d} s \\
+    &= f(x,t) + \int_{s = 0}^{t} \, [w_{tt}^s(x,t) - c^2 \, w_{xx}^s(x,t)] \, \mathrm{d} s \\
+    &= f(x,t)
+\end{align}
+
+Everything works and gives the unique solution in $C^2(R \times [0, + \infty))$, under rather natural hypotheses on $f$: we require $f$ and $f_x$ to be continuous in $R \times [0, + \infty)$.
+
+Finally note from (5.57) that the value of u at the point $(x,t)$ depends on the values of the forcing term $f$ in all the triangular sector $S_{x,t}$.
+
+\end{document}

@@ -1,0 +1,214 @@
+\documentclass[../main.tex]{subfiles}
+ 
+\begin{document}
+
+\textbf{DTU01418, Introduction to Partial Differential Equations, Fall 2018}
+
+\subsection{Problem A}
+
+To prove the above statement, we firstly set $w(\vec{x}) = u_1(\vec{x}) - u_2(\vec{x})$, so we have to prove there is a point $\vec{O} \in \Omega$, so that $u_1(\vec{O}) - u_2(\vec{O}) = 0$.
+
+Let's make the first assumption that $\vec{p}$ is a minimum point for $w(\vec{x})$, which means:
+\begin{equation}
+    w(\vec{p}) \leqslant u(\vec{y}) \quad \text{ ,  } \forall \vec{y} \in \Omega
+\end{equation}
+
+Let $\vec{q}$ be another arbitrary point in $\Omega$. Since $\Omega$ is connected, it is possible to find a finite sequence of balls $B(\vec{x}_j) \subset \subset \Omega \text{ ,  } j = 0,...,N$, such that:
+\begin{align}
+    & \vec{x}_j \in B(\vec{x}_{j-1}) \text{ ,  } j = 0,...,N \\
+    & \vec{x}_0 = \vec{p} \text{ ,  } \vec{x}_N = \vec{q}
+\end{align}
+
+The mean value property gives:
+\begin{align}
+    u_1(\vec{p}) = \frac{1}{|B(\vec{p})|} \, \int_{B(\vec{p})} \, u_1(\vec{y}) \, \mathrm{d} \vec{y} \\
+    u_2(\vec{p}) = \frac{1}{|B(\vec{p})|} \, \int_{B(\vec{p})} \, u_2(\vec{y}) \, \mathrm{d} \vec{y}
+\end{align}
+
+So,
+\begin{equation}
+    w(\vec{p}) = \frac{1}{|B(\vec{p})|} \, \int_{B(\vec{p})} \, [u_1(\vec{y}) - u_2(\vec{y})] \, \mathrm{d} \vec{y}
+\end{equation}
+
+Let's make a second assumption that there exists $\vec{z} \in B(\vec{p})$ such that:
+\begin{equation}
+    w(\vec{z}) > w(\vec{p})
+\end{equation}
+which, means:
+\begin{equation}
+    u_1(\vec{z}) - u_2(\vec{z}) > u_1(\vec{p}) - u_2(\vec{p})
+\end{equation}
+
+Then, given a circle $B_{r}(\vec{z}) \subset B(\vec{p})$,
+we can write:
+\begin{align}
+    u_1(\vec{p}) = \frac{1}{|B(\vec{p})|} \, \left\{ \int_{B(\vec{p}) \backslash B_r(\vec{z})} \, u_1(\vec{y}) \, \mathrm{d} \vec{y} + \int_{B_r(\vec{z})} \, u_1(\vec{y}) \, \mathrm{d} \vec{y} \right\} \\
+    u_2(\vec{p}) = \frac{1}{|B(\vec{p})|} \, \left\{ \int_{B(\vec{p}) \backslash B_r(\vec{z})} \, u_2(\vec{y}) \, \mathrm{d} \vec{y} + \int_{B_r(\vec{z})} \, u_2(\vec{y}) \, \mathrm{d} \vec{y} \right\}
+\end{align}
+and
+\begin{align}
+    & w(\vec{p}) = \frac{1}{|B(\vec{p})|} \, \left\{ \left( \int_{B(\vec{p}) \backslash B_r(\vec{z})} \, u_1(\vec{y}) \, \mathrm{d} \vec{y} + \int_{B_r(\vec{z})} \, u_1(\vec{y}) \, \mathrm{d} \vec{y} \right) - \left(\int_{B(\vec{p}) \backslash B_r(\vec{z})} \, u_2(\vec{y}) \, \mathrm{d} \vec{y} + \int_{B_r(\vec{z})} \, u_2(\vec{y}) \, \mathrm{d} \vec{y} \right) \right\} \\
+    & w(\vec{p}) = \frac{1}{|B(\vec{p})|} \, \left\{ \int_{B(\vec{p}) \backslash B_r(\vec{z})} \, [u_1(\vec{y}) - u_2(\vec{y})] \, \mathrm{d} \vec{y} + \int_{B_r(\vec{z})} \, [u_1(\vec{y}) -  u_2(\vec{y})] \, \mathrm{d} \vec{y} \right\}
+\end{align}
+
+Since $w(\vec{y}) \geqslant w(\vec{p})$ for every $y$ 
+\begin{equation}
+    w(\vec{z}) \, |B_r(\vec{z})| > w(\vec{p}) \, |B_r(\vec{z})|
+\end{equation}
+and, by the mean value again, we can get:
+\begin{align}
+    u_1(\vec{z}) = \frac{1}{|B_r(\vec{z})|} \, \int_{B_r(\vec{z})} \, u_1(\vec{y}) \, \mathrm{d} \vec{y} \\
+    u_2(\vec{z}) = \frac{1}{|B_r(\vec{z})|} \, \int_{B_r(\vec{z})} \, u_2(\vec{y}) \, \mathrm{d} \vec{y}
+\end{align}
+so that:
+\begin{equation}
+     \int_{B_r(\vec{z})} \, [u_1(\vec{y}) - u_2(\vec{y})] \, \mathrm{d} \vec{y} = w(\vec{z}) \, |B_r(\vec{z})|
+\end{equation}
+which means:
+\begin{equation}
+    \int_{B_r(\vec{z})} \, [u_1(\vec{y}) - u_2(\vec{y})] \, \mathrm{d} \vec{y} > w(\vec{p}) \, |B_r(\vec{z})| \\
+\end{equation}
+
+From eq.12, we can get:
+\begin{align}
+    \int_{B(\vec{p}) \backslash B_r(\vec{z})} \, [u_1(\vec{y}) - u_2(\vec{y})] \, \mathrm{d} \vec{y} + \int_{B_r(\vec{z})} \, [u_1(\vec{y}) -  u_2(\vec{y})] \, \mathrm{d} \vec{y} &> \int_{B(\vec{p}) \backslash B_r(\vec{z})} \, [u_1(\vec{y}) - u_2(\vec{y})] \, \mathrm{d} \vec{y} + w(\vec{p}) \, |B_r(\vec{z})| \\
+    w(\vec{p}) \, |B(\vec{p})| &> \int_{B(\vec{p}) \backslash B_r(\vec{z})} \, [u_1(\vec{y}) - u_2(\vec{y})] \, \mathrm{d} \vec{y} + w(\vec{p}) \, |B_r(\vec{z})| \\
+    w(\vec{p}) \, |B(\vec{p}) - B_r(\vec{z})| &> \int_{B(\vec{p}) \backslash B_r(\vec{z})} \, [u_1(\vec{y}) - u_2(\vec{y})] \, \mathrm{d} \vec{y} \\
+    \frac{|B(\vec{p}) - B_r(\vec{z})|}{|B(\vec{p})|} \, \int_{B(\vec{p})} \, [u_1(\vec{y}) - u_2(\vec{y})] \, \mathrm{d} \vec{y} &> \int_{B(\vec{p}) \backslash B_r(\vec{z})} \, [u_1(\vec{y}) - u_2(\vec{y})] \, \mathrm{d} \vec{y}
+\end{align}
+which is not true, so we must say the second assumption is not true. 
+
+And this means $w \equiv w(\vec{p})$ in $B(\vec{p})$ and in particular $w(\vec{x}_1) = w(\vec{p})$. We repeat now the same argument with $x_1$ in place of $\vec{p}$ to show that $w \equiv w(\vec{p})$ in $B(\vec{x}_1)$ and in particular $w(\vec{x}_2) = w(\vec{p})$. Iterating the procedure we eventually deduce that $w(\vec{x}_N) = w(\vec{p})$. Since $\vec{q}$ is an arbitrary point of $\Omega$, we conclude that $w \equiv w(\vec{p})$ in $\Omega$. 
+
+So we must say that the first assumption is not true. For the same reason, we can prove that the assumption of a existing maximum point for $w$ in $\Omega$. Thus the maximum point and minimum point of $w$ must exist at $\partial \Omega$. In other words:
+\begin{align}
+    w(\vec{x}) < \max_{\partial \Omega} w \\
+    w(\vec{x}) > \min_{\partial \Omega} w
+\end{align}
+
+And we know:
+\begin{equation}
+    w = u_1 - u_2 = - 1 \quad \text{ on  } \partial \Omega
+\end{equation}
+so that:
+\begin{align}
+    -1 \leqslant w(\vec{x}) \leqslant -1 \quad \text{ in  } \overline{\Omega} \\
+    w(\vec{x}) = - 1 \quad \text{ in  } \overline{\Omega}
+\end{align}
+
+So we must there is no point $\vec{x} \in \Omega$ such that $u_1(\vec{x}) = u_2(\vec{x})$.
+
+\subsection{Problem B}
+
+Let $\partial B_R(\vec{0})$ be the open disk in the plane $\mathbf{R}^2$, with radius $R > 0$ and centered at the origin, and write ν for the unit outward normal to the boundary $\partial B_R(\vec{0})$ of the disk. Also, let $(r, \theta)$ be the polar coordinates in $\mathbf{R}^2$. Is there a (smooth) solution $u$ of the Poisson problem:
+\begin{align} 
+    \begin{cases} \label{eq:A3_27}
+        \, \Delta u &= r \quad \text{ in  } B_R(\vec{0}) \\
+        \, \partial_{\vec{v}} \, u & = 8/3 \quad \text{ on  } \partial B_R(\vec{0})
+    \end{cases}
+\end{align}
+if $R = 3$? How about if $R = \sqrt{8}$? Explain.
+
+According to Remark 3.2, if there is a solution for this problem, the compatibility condition between $r$ and $8/3$ must be satisfies, which is:
+\begin{equation}
+    \int_{\Omega} \, f \, \mathrm{d} \vec{x} = \int_{\partial \Omega} h \mathrm{d} \sigma
+\end{equation}
+
+When in polar coordinates, we have $x = r \, \cos{\theta}$, $y = r \, \sin{\theta}$, and we can get:
+\begin{align}
+    \mathrm{d} \vec{x} = r \, \mathrm{d} r \, \mathrm{d} \theta \\
+    \mathrm{d}\sigma = R \, \mathrm{d} \phi
+\end{align}
+
+So
+\begin{align}
+    \int_{\Omega} \, r \, r \, \mathrm{d} r \, \mathrm{d} \theta &= \int_{\partial \Omega} 8/3 \, R \, \mathrm{d} \phi \\
+    \int_0^{2 \, \pi} (1/3 \, r^3 |_0^R) \, \mathrm{d} \theta &= \int_0^{2 \, \pi} 8/3 \, R \, \mathrm{d} \phi \\
+    16/3 \, \pi \, R &= 2/3 \, \pi \, R^3 
+\end{align}
+
+So we can get $R = \sqrt{8}$ can satisfy the compatibility condition, that is when $R = \sqrt{8}$, we can solve the Poisson problem with Neumann boundary condition.
+
+\subsection{Problem C}
+
+If $u_1$ and $u_2$ are (smooth) functions satisfying:
+\begin{align}
+    \begin{cases}
+        \, \Delta u_1 = r^2 / 3 + 2 \quad \text{ in  } B_R(\vec{0}) \\
+        \, u_1 = \sin{\theta} \quad \text{ on  } \partial B_R(\vec{0})
+    \end{cases}
+    \begin{cases}
+        \, \Delta u_2 = r^2 / 3 + 2 \quad \text{ in  } B_R(\vec{0}) \\
+        \, u_2 = \cos{\theta} \quad \text{ on  } \partial B_R(\vec{0})
+    \end{cases}
+\end{align}
+
+Let $w = u_1 - u_2$, then $w$ is harmonic, which satisfies:
+\begin{align}
+    \begin{cases}
+        \, \Delta w = 0 \quad \text{ in  } B_R(\vec{0}) \\
+        \, w = \sin{\theta} - \cos{\theta} \quad \text{ on  } \partial B_R(\vec{0})
+    \end{cases}
+\end{align}
+
+According to stability characteristics of Poisson problem with Dirichlet boundary condition in corollary 3.8, we know:
+\begin{equation}
+    |w| \leqslant \max_{\partial \Omega} |\sin{\theta} - \cos{\theta}|
+\end{equation}
+
+And we know (\textcolor{red}{Always remember to write the whole process}):
+\begin{align}
+    \max_{\partial \Omega} |\sin{\theta} - \cos{\theta}| &= \max_{\partial \Omega} |\sqrt{1 - \sin{2 \, \theta}}| \\
+    &= \sqrt{2} \nonumber
+\end{align}
+so that:
+\begin{equation}
+    |u_1 - u_2| \leqslant \sqrt{2}
+\end{equation}
+and the maximum value of $|u_1 - u_2|$ is $\sqrt{2}$.
+
+\textcolor{red}{Be careful. The maximum principle says that the max of a nonconstant harmonic function is attained on the boundary, which, in this case, doesn't belong to $B_R(\vec{0})$. i.e. $\sqrt(2)$ is the least upper bound, for $|u_1 - u_2|$.}
+
+\subsection{Problem D}
+
+Write an integral representation formula for a solution of the boundary problem \ref{eq:A3_27}. If your formula involves a Green’s function or a Neumann function, you do not need to find these functions explicitly. Also, you do not need to evaluate any integrals in your formula explicitly. However, explain in detail all components of your integral representation formula.
+
+The equation is:
+\begin{align} 
+    \begin{cases} \nonumber
+        \, \Delta u &= r \quad \text{ in  } B_R(\vec{0}) \\
+        \, \partial_{\vec{v}} \, u & = 8/3 \quad \text{ on  } \partial B_R(\vec{0})
+    \end{cases}
+\end{align}
+
+We can transform the problem to that in polar coordinate first:
+\begin{align}
+    \begin{cases}
+        \, U_{rr} + \frac{1}{r} \, U_r + \frac{1}{r^2} \, U_{\theta \theta} = r \qquad \text{ ,  } 0 < r < \sqrt{8} \text{ ,  } 0 \leqslant \theta \leqslant 2 \, \pi \\
+        \, U_r(R,\theta) = 8/3 \qquad \text{ ,  } 0 \leqslant \theta \leqslant 2 \, \pi
+    \end{cases}
+\end{align}
+
+According to theorem 3.39, the solution of the Neumann problem can written as:
+\begin{align}
+    u &= \underbrace{\frac{1}{|\partial \Omega|} \, \int_{\partial \Omega} \, u(\vec{\sigma}) \, \mathrm{d} \sigma}_{\text{mean value of }u} + \underbrace{\int_{\partial \Omega} \, h(\vec{\sigma}) \, N(\vec{x}, \vec{\sigma}) \, \mathrm{d} \sigma}_{\text{single layer potential of $\partial_{\vec{v}} \, u$}} - \underbrace{\int_{\Omega} \, f(\vec{y}) \, N(\vec{x}, \vec{y}) \, \mathrm{d} \vec{y}}_{\text{double layer potential of $u$}} \\
+    &= \frac{1}{2 \, \pi \, R} \, \int_{\partial \Omega} \, R \, u \, \mathrm{d} \phi + \int_{\partial \Omega} \, R \, 8/3 \, N(\vec{x}, \vec{\sigma}) \, \mathrm{d} \phi - \int_{\Omega} \, r^2 \, N(\vec{x}, \vec{y}) \, \mathrm{d} r \, \mathrm{d} \theta \\
+    &= 8/3 + 16\sqrt{2}/3 \, \int_{\partial \Omega} \, N(\vec{x}, \vec{\sigma}) \, \mathrm{d} \phi - \int_{\Omega} \, r^2 \, N(\vec{x}, \vec{y}) \, \mathrm{d} r \, \mathrm{d} \theta
+\end{align}
+in which the Neumann function:
+\begin{align}
+    N(\vec{x}, \vec{\sigma}) &= \Phi(\vec{x} - \vec{\sigma}) - \psi(\vec{x}, \vec{\sigma}) \\
+    &= - \frac{1}{2 \, \pi} \, \log{\sqrt{8 - r^2}} - \psi(\vec{x}, \vec{\sigma}) \\
+    N(\vec{x}, \vec{y}) &= \Phi(\vec{x} - \vec{y}) - \psi(\vec{x}, \vec{y}) \\
+    &= - \frac{1}{2 \, \pi} \, \log{\sqrt{|r_1^2 - r_2^2|}} - \psi(\vec{x}, \vec{y})
+\end{align}
+
+And the function $\Phi(\vec{x})$:
+\begin{align} \label{eq:LE58}
+    \, \Phi(\vec{x}) = \begin{cases} - \frac{1}{2 \pi} \, \log{|\vec{x}|} & n = 2 \\
+    \, \frac{1}{4 \pi \, |\vec{x}|} & n = 3
+    \end{cases}
+\end{align}
+is called the \textbf{fundamental solution} for the Laplace operator $\Delta$.
+
+\end{document}

@@ -1,0 +1,152 @@
+\documentclass[../main.tex]{subfiles}
+ 
+\begin{document}
+
+\subsection{Opportunities and Dangers of Finite Difference}
+
+Assume a function $u(x)$. Choose a mesh size $\Delta x$, and approximate the value $u(j \, \Delta x)$ for $x = j \, \Delta x$ (divide $x$ to $j$ parts of $\Delta x$) by a number $u_j$ indexed by an integer j:
+\begin{align*}
+    & u_j \sim u(j \, \Delta x) \sim u(x)\\
+    \text{Similarly, } & u_{j+1} \sim u((j+1) \, \Delta x) \sim u(x + \Delta x)
+\end{align*}
+
+Assume $u(j \, \Delta x) \in C^2(I)$, then the Taylor expansion of $u(x + \Delta x)$ and $u(x - \Delta x)$ are:
+\begin{align*}
+    u(x + \Delta x) = u(x) + u`(x) \, \Delta x + O \, (\Delta x)^2 \\
+    u(x - \Delta x) = u(x) - u`(x) \, \Delta x + O \, (\Delta x)^2
+\end{align*}
+
+Then the three standard approximation for the first derivative $\frac{\partial u}{\partial x} \, (j \, \Delta x)$ are shown. Pay attention to the change of the order of omission term $O \, (\Delta x)$, which causes truncation error mentioned below and has an impact on the final outcome.
+\begin{align}
+    & \text{The backward differences: } u`(j \, \Delta x) \approx \frac{u_j - u_{j-1}}{\Delta x} + \xcancel{O(\Delta x)} \label{eq:FD1} \\
+    & \text{The forward differences: } u`(j \, \Delta x) \approx \frac{u_{j+1} - u_j}{\Delta x} + \xcancel{O(\Delta x)} \label{eq:FD2} \\
+    & \text{The centered differences: } u`(j \, \Delta x) \approx \frac{u_{j+1} - u_{j-1}}{2 \, \Delta x} + \xcancel{O(\Delta x)} \label{eq:FD3} 
+\end{align}
+
+Assume $u(j \, \Delta x) \in C^3(I)$, then the Taylor expansion can be more detailed:
+\begin{align*}
+    u(x + \Delta x) = u(x) + u`(x) \, \Delta x + \frac{1}{2} \, u``(x) \, (\Delta x)^2 + O \, (\Delta x)^3
+\end{align*}
+
+For the second derivative, the simplest approximation is the centered second difference:
+\begin{align}
+    u``(j \, \Delta x) \approx \frac{u_{j+1} - 2\, u_j + u_{j-1}}{(\Delta x)^2} + \xcancel{O(\Delta x)^2} \label{eq:FD4}
+\end{align}
+
+For functions of two variables $u(x,t)$, we choose a mesh size for two variables. We write:
+\begin{align*}
+    u_j^n \sim u(j \, \Delta x, n \, \Delta t) \sim u(x,t)
+\end{align*}
+
+And we can write similar expressions like equation (\ref{eq:FD1}) - (\ref{eq:FD4}).
+
+Two kinds of errors can be introduced in a computation using such approximation:
+\begin{itemize}
+  \item \textbf{Truncation Error}: The error in the solutions by the approximation itself.
+  \item \textbf{Round-off Error}: The limitation that only a certain number of digits, typically 8 or 16, are obtained by the computer at each step of the computation.
+\end{itemize}
+
+
+
+
+
+
+\subsection{Approximations of Diffusion}
+
+The choice of the mesh $\Delta t$ relative to the mesh $\Delta x$ is called Courant Number:
+\begin{align}
+    s = \frac{\Delta t}{(\Delta x)^2} \label{eq:FD5}
+\end{align}
+
+Let's see a simple problem:
+\begin{align}
+    u_t - u_{xx} = 0 \text{ , } u(x,0) = \phi(x) \label{eq:FD6}
+\end{align}
+
+The finite difference equation of eq.\ref{eq:FD6} can be write with local truncation error:
+\begin{align}
+    \frac{u_j^{n+1} - u_j^{n}}{\Delta t} + \xcancel{O(\Delta t)} & = \frac{u_{j+1}^n - 2 \, u_j^n + u_{j-1}^n}{(\Delta x)^2} + \xcancel{O(\Delta x)^2} \label{eq:FD7}
+\end{align}
+
+Substitute eq.\ref{eq:FD5}, we can get:
+\begin{align}
+    u_j^{(n+1)} = s \, (u_{j+1}^n + u_{j-1}^n) + (1 - 2 \, s) \, u_j^n \label{eq:FD8}
+\end{align}
+
+And the following diagram can be a visual explanation of eq.\ref{eq:FD8}.
+\begin{center}
+\begin{tabular}{|P{3em} P{3em} P{3em} P{3em} P{3em} P{3em} P{3em}}
+    t     &     &       &        &       & &   \\ 
+          &     &       &        &       & &   \\
+    (n+1) &     &       & *      &       & &   \\
+    n     &     & s     & (1-2s) & s     & &   \\
+    ...   &     &       &        &       & &   \\
+    1     &     &       &        &       & &   \\
+    0     & ... & (j-1) & j      & (j+1) & & x \\
+    \hline
+\end{tabular}
+\end{center}
+
+So, from initial value $u(x,0) = \phi(x)$ in eq.\ref{eq:FD5}, we can get any $u(x,j)$. There may be need of other necessary additional boundary condition when come down to the value along the boundary.
+
+But there is a large difference in the outcome of the above method because of chosen value of $s$, This is called the stability criterion which is discussed below.
+
+\subsubsection{Stability Criterion}
+
+To actually demonstrate that this is the stability condition, we separate the variables in the difference equation. Thus we look for solutions of equation \ref{eq:FD8} of the form:
+\begin{align}
+    \begin{split} \label{eq:FD18}
+        u_j^n &=  X_j \, T_n \\
+              &= \frac{u_j^{n+1} - s \, (u_{j+1}^n + u_{j-1}^n)}{(1 - 2 \, s)}
+    \end{split} 
+\end{align}
+
+Thus,
+\begin{align}
+    \begin{split} \label{eq:FD19}
+    \frac{T_{n+1}}{T_n} &= \frac{u_j^{n+1}}{u_j^n} \\
+                        &= s \, \frac{X_{j+1} + X_{j-1}}{X_j} + 1 - 2 \, s
+    \end{split}
+\end{align}
+
+Both sides of equation \ref{eq:FD18} must be a constant $\xi$ independent of $j$ and $n$. Therefore,
+\begin{align}
+    T_n &= \xi^n \, T_0 \label{eq:FD20} \\
+    \frac{T_{n+1}}{T_n} &= \xi \nonumber
+\end{align}
+
+So,
+\begin{align}
+    s \, \frac{X_{j+1} + X_{j-1}}{X_j} + 1 - 2 \, s  = \xi \label{eq:FD21}
+\end{align}
+
+To solve the spatial eq.\ref{eq:FD21}, we argue that it is a discrete version of a second-order ODE which has sine and cosine solutions. Therefore, we guess solutions of eq.\ref{eq:FD21} of the form:
+\begin{align}
+    X_j = A \, \cos{(j \, \theta)} + B \, \sin{(j \, \theta)} \label{eq:FD22}
+\end{align}
+for some $\theta$, where $A$ and $B$ are arbitrary. The boundary condition $X_0 = 0$ at $j \, \theta= 0$ implies that $A = 0$. So we can freely set $B = 1$. Then $X_j = \sin{(j \, \theta)}$.
+
+Furthermore, the boundary condition $X_J = 0$ at $j = J$ implies that $\sin{(j \, \theta)} = 0$. Thus $J \, \theta = k \, \pi$ for some integer $k$. But the discretization into $J$ equal intervals of length $\Delta x$ meas that $J = \pi / \Delta x$. Therefore, $\theta = k \, \Delta x$ and
+\begin{align}
+    X_j = \sin{(j \, k \, \Delta x)} \label{eq:FD23}
+\end{align}
+
+Now eq.\ref{eq:FD21} takes the form:
+\begin{align*}
+    s \, \frac{\sin{((j+1) \, k \, \Delta x)} + \sin{((j-1) \, k \, \Delta x)}}{\sin{(j \, k \, \Delta x)}} + 1 - 2 \, s  = \xi \nonumber
+\end{align*}
+or
+\begin{align}
+    \xi = \xi(k) = 1 - 2 \, s \, [1 - \cos{(k \, \Delta x)}] \label{eq:FD24}
+\end{align}
+
+According to eq.\ref{eq:FD20}, the growth in time $t = n \, \Delta t$ at the wave number k is governed by the powers $\xi(k)^n$. So, \textbf{unless $|\xi(k)| \leqslant 1$ for all $k$ the scheme is unstable} and could not possibly approximate the true (exact) solution. (Recall that the true solution tends to zero as $t \rightarrow \inf$.) Now we analyze eq.\ref{eq:FD24} to determine whether $|\xi(k)| \leqslant 1$ or not. Since factor $1 - \cos{(k \, \Delta x)}$ ranges between 0 and 2, we have $1 - 4 \, s \leqslant \xi(k) \leqslant 1$. So stability requires that $1 - 4 \, s \geqslant - 1$, which means that
+\begin{align}
+    \frac{\Delta t}{(\Delta x)^2} = s \leqslant \frac{1}{2} \label{eq:FD25}
+\end{align}
+
+
+
+
+
+\end{document}

@@ -1,0 +1,279 @@
+\documentclass[../main.tex]{subfiles}
+ 
+\begin{document}
+
+\subsection{3.1, Introduction}
+
+The Laplace equation $\Delta u = 0$ occurs frequently in the applied sciences, in particular in the study of the \textit{steady state phenomena}. Its solutions are called \textit{harmonic functions}.
+
+Assume $u$ is holomorphic, $x + i \, y$:
+\begin{equation} \label{eq:LE1}
+    \left(\frac{\partial}{\partial x} + i \, \frac{\partial}{\partial y} \right) \, u = 0
+\end{equation}
+which means:
+\begin{align}
+    \bar{\partial} u &= 0  \label{eq:LE2}\\
+    \partial (\bar{\partial} u) &= 0 \label{eq:LE3}
+\end{align}
+
+So, eq.\ref{eq:LE3} becomes:
+\begin{align}
+    \left(\frac{\partial}{\partial x} +- i \, \frac{\partial}{\partial y} \right) \, \left(\frac{\partial}{\partial x} + i \, \frac{\partial}{\partial y} \right) \, u = 0 \label{eq:LE4} \\
+    \left(\xcancel{i \,  \frac{\partial}{\partial x} \, \frac{\partial}{\partial y}} - \xcancel{i \,  \frac{\partial}{\partial y} \, \frac{\partial}{\partial x}} + \frac{\partial^2}{\partial x^2} +  \frac{\partial^2}{\partial y^2} \right) \, u = 0 \label{eq:LE5} \\
+    \Delta u = 0 \label{eq:LE6}
+ \end{align}
+
+Then, eq.\ref{eq:LE6} becomes:
+\begin{align}
+    \Delta (\Re \, u + i \, \Im \, u) &= 0 \label{eq:LE7} \\
+    \Delta (\Re \, u) + i \, \Delta (\Im \, u) &= 0 \nonumber \\
+    \Delta (\Re \, u) = 0 \text{ ,  }\Delta (\Im \, u) &= 0 \label{eq:LE8}
+\end{align}
+
+Slightly more generally, Poisson’s equation $\Delta u = f$ plays an important role in the theory of conservative fields (electrical, magnetic, gravitational, ...), where the vector field is derived from the gradient of a potential. So, if $\vec{u} = - \nabla \varphi$, then:
+\begin{align}
+    & \mathrm{div} \vec{u} = - \mathrm{div} \nabla \varphi = - \Delta \varphi \label{eq:LE9} \\
+    & \Delta \varphi = - \mathrm{div} \vec{u} = f \label{eq:LE10}
+\end{align}
+where $\vec{u}$ is a conservative field and $\varphi$ is the associated potential.
+
+\subsection{3.2, Well Posed Problems. Uniqueness} \label{sec:3.2}
+
+Consider the Poisson equation:
+\begin{equation} \label{eq:LE11}
+    \Delta u = f \quad \text{ in  } \Omega
+\end{equation}
+where $\Omega \subset \mathbb{R}^n$ is a bounded domain, which means $\Omega$ is an open simply connected subset of $\mathbb{R}^n$. 
+
+The well posed problems associated with eq.\ref{eq:LE11} are the stationary counterparts of the corresponding problems for the diffusion equation. Clearly here there is no initial condition. On the boundary $\partial \Omega$ we may assign:
+\begin{align}
+    & \text{Dirichlet data:  } & & u|\partial \, \Omega = g  \label{eq:LE12} \\
+    & \text{or Neumann data:  } & & \partial_{\vec{v}} \, u|\partial \, \Omega = h  \label{eq:LE13} \\
+    & \text{or Robin (radiation) condition:  } & & (\partial_{\vec{v}} \, u + \alpha \, u)|\partial \, \Omega  = h \quad (\alpha > 0)  \label{eq:LE14} \\
+    & \text{or mixed condition:  } & & u|\partial \, \Omega_D = g \text{ ,  } \partial_{\vec{v}} \, u|\partial \, \Omega_N = h \label{eq:LE15}
+\end{align}
+where $\vec{v}$ is the outward normal unit vector to $\partial \, \Omega$, besides, $\Omega_D$ and $\Omega_N$ are relatively open regular subsets of $\partial \, \Omega$, $\overline{\partial \,\Omega_D} \cup \overline{\partial \,\Omega_N} = \partial \, \Omega$ (the overline means including the boundary), $\Omega_D \cap \Omega_N = \varnothing$.
+
+When $g = h = 0$, we say that the above boundary conditions are \textit{homogeneous}.
+
+To prove the uniqueness of the result of Possion equation, we assume $u$ and $v$ both solves the above problem. Then, we get:
+\begin{align}
+    \begin{cases} \label{eq:LE16}
+        \, \Delta u = f \quad \text{ in  } \Omega \\
+        \, u|\partial \, \Omega = g \quad \text{ , which is Dirichlet data, or  } \\
+        \, \partial_{\vec{v}} \, u|\partial \, \Omega = h \quad \text{ , which is Neumann data, or  } \\
+        \, (\partial_{\vec{v}} \, u + \alpha \, u)|\partial \, \Omega  = 0 \quad (\alpha > 0) \quad \text{ , which is Robin (radiation) condition, or  } \\
+        \, u|\partial \, \Omega_D = g \text{ ,  } \partial_{\vec{v}} \, u|\partial \, \Omega_N = h \quad \text{ , which is mixed condition  }
+    \end{cases} \\
+    \begin{cases} \label{eq:LE17}
+        \, \Delta v = f \quad \text{ in  } \Omega \\
+        \, v|\partial \, \Omega = g \quad \text{ , which is Dirichlet data, or  } \\
+        \, \partial_{\vec{v}} \, v|\partial \, \Omega = h \quad \text{ , which is Neumann data, or  } \\
+        \, (\partial_{\vec{v}} \, v + \alpha \, v)|\partial \, \Omega  = 0 \quad (\alpha > 0) \quad \text{ , which is Robin (radiation) condition, or  } \\
+        \, v|\partial \, \Omega_D = g \text{ ,  } \partial_{\vec{v}} \, v|\partial \, \Omega_N = h \quad \text{ , which is mixed condition  }
+    \end{cases}
+\end{align}
+
+Define $w = u - v$, we get:
+\begin{align}
+    \begin{cases} \label{eq:LE18}
+        \, \Delta w = 0 \quad \text{ in  } \Omega \\
+        \, w|\partial \, \Omega = 0 \quad \text{ , which is Dirichlet data, or  } \\
+        \, \partial_{\vec{v}} \, w|\partial \, \Omega = 0 \quad \text{ , which is Neumann data, or  } \\
+        \, (\partial_{\vec{v}} \, w + \alpha \, w)|\partial \, \Omega  = 0 \quad (\alpha > 0) \quad \text{ , which is Robin (radiation) condition, or  } \\
+        \, w|\partial \, \Omega_D = 0 \text{ ,  } \partial_{\vec{v}} \, w|\partial \, \Omega_N = 0 \quad \text{ , which is mixed condition  }
+    \end{cases}
+\end{align}
+
+From eq.\ref{eq:LE18}, we can get:
+\begin{equation} \label{eq:LE19}
+    \int_{\Omega} \, \Delta w = 0
+\end{equation}
+
+According to Green's First Identity (1.13), we can write eq.\ref{eq:LE19} to:
+\begin{align}
+    \int_{\Omega} \, w \, \Delta w \, \mathrm{d} \vec{x}= 0 \label{eq:LE20} \\
+    \int_{\partial \, \Omega} \, w \, \partial_{\vec{v}} \, w \, \mathrm{d} \vec{\sigma} - \int_{\Omega} \, \nabla w \, \nabla w \, \mathrm{d} \vec{x} = 0 \nonumber \\
+    \int_{\partial \, \Omega} \, w \, \partial_{\vec{v}} \, w \, \mathrm{d} \vec{\sigma} - \int_{\Omega} \, |\nabla w|^2 \, \mathrm{d} \vec{x} = 0 \label{eq:LE21}
+\end{align}
+
+For Dirichlet, Neumann and mixed boundary condition, eq.\ref{eq:LE21} becomes:
+\begin{align}
+    \int_{\Omega} \, |\nabla w|^2 \, \mathrm{d} \vec{x} &= 0 \label{eq:LE22} \\
+    \nabla w &= 0 \quad \text{ in  } \Omega \label{eq:LE23} \\
+    w &= u - v = constant \quad \text{ in  } \Omega \label{eq:LE124}
+\end{align}
+
+For Neumann condition, two solutions $u$ and $v$ differ by a constant, which is \textbf{Theorem 3.1}. \hfill \Box
+
+For Dirichlet and mixed boundary condition, according to eq.\ref{eq:LE124}, we can say:
+\begin{equation} \label{eq:LE24}
+    w = 0 \quad \text{ in  } \Omega
+\end{equation}
+
+For Robin boundary condition in eq.\ref{eq:LE18}, we can get:
+\begin{equation} \label{eq:LE25}
+    \partial_{\vec{v}} \, w|\partial \, \Omega = - \alpha \, w|\partial \, \Omega \quad (\alpha > 0)
+\end{equation}
+
+Then, we substitute eq.\ref{eq:LE25} in to eq.\ref{eq:LE21}:
+\begin{equation} \label{eq:LE26}
+    - \alpha \, \int_{\partial \, \Omega} \, w^2 - \int_{\Omega} \, |\nabla w|^2 = 0
+\end{equation}
+
+And we can say:
+\begin{equation} \label{eq:LE27}
+    0 \leqslant \int_{\Omega} \, |\nabla w|^2 = - \alpha \, \int_{\partial \, \Omega} \, w^2 \leqslant 0
+\end{equation}
+so, we can get the following two conclusions:
+\begin{align}
+    \int_{\Omega} \, |\nabla w|^2 = 0  \label{eq:LE28} \\
+    - \alpha \, \int_{\partial \, \Omega} \, w^2 = 0 \label{eq:LE29}
+\end{align}
+
+Eq.\ref{eq:LE28} indicates:
+\begin{align}
+    \nabla w &= 0 \quad \text{ in  } \Omega \label{eq:LE30} \\
+    w &= \text{constant} \quad \text{ in  } \Omega \label{eq:LE31}
+\end{align}
+
+Additionally, Robin boundary condition $(\partial_{\vec{w}} \, w + \alpha \, w)|\partial \, \Omega  = 0 \quad (\alpha > 0)$ means:
+\begin{align}
+    \lim_{x \rightarrow \partial \, \Omega} \,  (\partial_{\vec{v}} \, w(x) + \alpha \, w(x)) &= 0 \label{eq:LE32} \\
+    \lim_{x \rightarrow \partial \, \Omega} \, \alpha \, w &= \alpha \, w = 0 \label{eq:LE33} \\
+    w &= 0 \label{eq:LE34}
+\end{align} \hfill \Box
+
+\textbf{Remark 3.2}  Consider the Neumann problem. Integrate the equation on $\Omega$, and using Gauss' formula, we find:
+\begin{equation} \label{eq:LE135}
+    \int_{\Omega} \, f \mathrm{d} \vec{x} = \int_{\partial \Omega} \, h \, \mathrm{d} \vec{\sigma}
+\end{equation} 
+
+The relation eq.\ref{eq:LE135} appears as a \textit{compatibility} condition on the data $f$ and $h$, that has \textit{necessarily} to be satisfied in order for the Neumann problem to admit a solution. Thus, when having to solve a Neumann problem, the first thing to do is to check the validity of eq.\ref{eq:LE135}. If it does not hold, the problem does not have any solution. We will examine later the physical meaning of eq.\ref{eq:LE135}.
+
+Interpretation: for a steady state to be possible, the heat production in $\Omega$ (due to $f$) must be perfectly balanced with the heat outflow from $\Omega$ (due to $h$). \hfill \Box
+
+\subsection{3.3, Harmonic Functions}
+
+\subsubsection{3.3.2, Proof of Mean Value Properties}
+
+\textbf{Theorem 3.4}  Let $u$ be harmonic in $\Omega \subseteq \mathcal{R}^n$. Then, for any ball $B_R(\vec{x}) \subset \subset \Omega$, the following mean value formulas hold:
+\begin{align}
+    u(\vec{x}) &= \frac{n}{\omega_n \, R^n} \, \int_{B_R(\vec{x})} \, u(\vec{y}) \, \mathrm{d} \vec{y} \label{eq:LE35} \\
+    u(\vec{x}) &= \frac{1}{\omega_n \, R^{n-1}} \, \int_{\partial B_R(\vec{x})} \, u(\vec{\sigma}) \, \mathrm{d} \sigma \label{eq:LE36}
+\end{align}
+where $\sigma_n$ is the surface measure of $\partial B_1$. \hfill \Box
+
+\textbf{Proof}  Let us start from the second formula. For $r < R$ define:
+\begin{equation} \label{eq:LE37}
+    g(r) = \frac{1}{\omega_n \, r^{n-1}} \, \int_{\partial B_r(\vec{x})} \, u(\vec{\sigma}) \, \mathrm{d} \sigma
+\end{equation}
+
+Perform the change of variables $\vec{\sigma} = \vec{x} + r \, \vec{\sigma}'$. Then:
+\begin{align}
+    & \vec{\sigma}' \in \partial B_1(\vec{0}) \text{ ,  } \mathrm{d} \sigma = r^{n-1} \, \mathrm{d} \sigma'  \label{eq:LE38} \\
+    & g(r) = \frac{1}{\omega_n} \, \int_{\partial B_1(\vec{0})} \, u(\vec{x} + r \, \vec{\sigma}') \, \mathrm{d} \sigma' \label{eq:LE39}
+\end{align}
+
+Let $v(\vec{y}) = u(\vec{x} + r \, \vec{y})$ and observe that:
+\begin{align}
+    & \nabla v(\vec{y}) = r \, \nabla u(\vec{x} + r \, \vec{y}) \label{eq:LE40} \\
+    & \Delta v(\vec{y}) = r^2 \, \Delta u(\vec{x} + r \, \vec{y}) \label{eq:LE41}
+\end{align}
+
+Then we have:
+\begin{align}
+    g'(r) &= \frac{1}{\omega_n} \, \int_{\partial B_1(\vec{0})} \, \frac{\mathrm{d}}{\mathrm{d} r} \, u(\vec{x} + r \, \vec{\sigma}') \, \mathrm{d} \sigma' \label{eq:LE42} \\
+    &= \frac{1}{\omega_n} \, \int_{\partial B_1(\vec{0})} \, \nabla \, u(\vec{x} + r \, \vec{\sigma}') \, \vec{\sigma}' \, \mathrm{d} \sigma' \label{eq:LE43} \\
+    &= \frac{1}{\omega_n \, r} \, \int_{\partial B_1(\vec{0})} \, \nabla \, v(\vec{\sigma}') \, \vec{\sigma}' \, \mathrm{d} \sigma' \label{eq:LE44} \\
+    &= \frac{1}{\omega_n \, r} \, \int_{\partial B_1(\vec{0})} \, \Delta \, v(\vec{y}) \, \mathrm{d} \vec{y} \quad \text{(divergence theorem)} \label{eq:LE45} \\
+    &= \frac{r}{\omega_n} \, \int_{\partial B_1(\vec{0})} \, \Delta \, u(\vec{x} + r \, \vec{y}) \, \mathrm{d} \vec{y} \label{eq:LE46}
+\end{align}
+Thus, $g$ is constant and since $g(r) \rightarrow u(\vec{x})$ for $r \rightarrow 0$, we get eq.\ref{eq:LE36}.
+
+To obtain eq.\ref{eq:LE35}, let $R = r$ in eq.\ref{eq:LE36}, multiply by $r$ and integrate both sides between 0 and $R$. We find:
+\begin{align}
+    \frac{R^n}{n} \, u(\vec{x}) &= \frac{1}{\omega_n} \, \int_0^R \, \mathrm{d} r \, \int_{\partial B_r(\vec{x})} \, u(\vec{\sigma}) \, \mathrm{d} \sigma \label{eq:LE47} \\
+    &= \frac{1}{\omega_n} \, \int_{B_R(\vec{x})} \, u(\vec{y}) \, \mathrm{d} \vec{y} \label{eq:LE48}
+\end{align}
+from which eq.\ref{eq:LE35} follows. \hfill \Box
+
+\subsubsection{3.3.3, Maximum Principles}
+
+P124, \cite{salsa2016partial}.
+
+\subsection{3.4, A Probabilistic Solution of the Dirichlet Problem}
+
+\textbf{Theorem 3.19}  Let $\Omega$ be a bounded Lipschitz domain and $g \in C(\partial \Omega)$. The unique solution $u \in C^2(\Omega) \cap C(\overline{\Omega})$ of Possion equation with Dirichlet boundary condition is given by:
+\begin{equation} \label{eq:LE49}
+    u(\vec{x}) = E^{\vec{x}}[g(\vec{X}(\tau))] = \int_{\partial \Omega} \, g(\vec{\sigma}) \, P(\vec{x}, \tau(\vec{x}), \mathrm{d} \sigma)
+\end{equation}
+
+\subsection{3.6, Fundamental Solution and Newtonian Potential}
+
+\subsubsection{3.6.1, The Fundamental Solution}
+
+Eq.\ref{eq:LE49} is not the only representation formula for the solution of the Dirichlet problem. We shall derive deterministic formulas involving various types of potentials, constructed using a special function, called the fundamental solution of the Laplace operator.
+
+As we did for the diffusion equation, let us look at the invariance properties characterizing the operator $\Delta$: the invariances by translations and by rotations.
+
+Let $u = u(x)$ be harmonic in $\mathbb{R}^n$. \textbf{Invariance by translations} means that the function $v (\vec{x}) = u (\vec{x} - \vec{y})$, for each fixed $\vec{y}$, is also harmonic, as it is immediate to check.
+
+\textbf{Invariance by rotations} means that, given a rotation in $\mathbb{R}^n$, represented by an orthogonal matrix $\mathbf{M}$ (i.e. $\mathbf{M}^{\top} = \mathbf{M}^{−1}$), also $v(\vec{x}) = u(\mathbf{M} \, \vec{x})$ is harmonic in $\mathbb{R}^n$. To check it, observe that, if we denote by $D^2 u$ the Hessian of $u$, we have:
+\begin{equation} \label{eq:LE50}
+    \Delta u = \mathrm{Tr} D^2 u = \text{trace of the Hessian of $u$}
+\end{equation}
+Since
+\begin{equation} \label{eq:LE51}
+    D^2 v(\vec{x}) = \mathbf{M}^{\top} \, D^2 u(\mathbf{M} \vec{x}) \, \mathbf{M}
+\end{equation}
+and $\mathbf{M}$ is orthogonal, we have:
+\begin{align}
+    \Delta v(\vec{x}) &= \mathrm{Tr}[\mathbf{M}^{\top} \, D^2 u(\mathbf{M} \vec{x}) \, \mathbf{M}]  \nonumber \\
+    &= \mathrm{Tr} D^2 u(\mathbf{M} \vec{x})  \nonumber \\
+    &= \Delta u(\mathbf{M} \vec{x}) = 0 \label{eq:LE52}
+\end{align}
+and therefore $v$ is harmonic.
+
+Now, a typical rotationally invariant quantity is \textit{the distance function from a point}, for instance from the origin, that is $r = |\vec{x}|$. Thus, let us look for \textit{radially symmetric} harmonic functions $u = u(r)$.
+
+Consider first $n = 2$; using polar coordinates and recalling (3.23), we find:
+\begin{equation} \label{eq:LE53}
+    \frac{\partial^2 u}{\partial r^2} + \frac{1}{r} \, \frac{\partial u}{\partial r} = 0
+\end{equation}
+so that:
+\begin{equation} \label{eq:LE54}
+    u(r) = C \, \log{r} + C_1
+\end{equation}
+
+In dimension $n = 3$ using spherical coordinates $(r, \psi, \theta)$, $r > 0$, $0 < \psi < \pi$, $0 < \theta < 2 \pi$, the operator $\Delta$ has the following expression\footnote{Appendix D}:
+\begin{equation} \label{eq:LE55}
+    \Delta = \underbrace{\frac{\partial^2}{\partial r^2} + \frac{2}{r} \, \frac{\partial}{\partial r}}_{\text{radial part}} + \frac{1}{r} \, \underbrace{\left\{\frac{1}{(\sin{\psi})^2} \, \frac{\partial^2}{\partial \theta^2} + \frac{\partial^2}{\partial \psi^2} + \cot{\psi} \, \frac{\partial}{\partial \psi}\right\}}_{spherical part (Laplace-Beltrami operator)}
+\end{equation}
+
+The Laplace equation for $u = u(r)$ becomes:
+\begin{equation} \label{eq:LE56}
+    \frac{\partial^2 u}{\partial r^2} + \frac{2}{r} \, \frac{\partial u}{\partial r} = 0
+\end{equation} \label{eq:LE52}
+whose general integral is:
+\begin{equation} \label{eq:LE57}
+    u(r) = \frac{C}{r} + C_1 \quad \text{ ,  $C$, $C_1$ arbitrary constants}
+\end{equation}
+
+Choose $C_1 = 0$ and $C= \frac{1}{4 \pi}$ if $n = 3$, $C = − \frac{1}{2 \pi}$ if $n = 2$. The function:
+\begin{align} \label{eq:LE58}
+    \, \Phi(\vec{x}) = \begin{cases} - \frac{1}{2 \pi} \, \log{|\vec{x}|} & n = 2 \\
+    \, \frac{1}{4 \pi \, |\vec{x}|} & n = 3
+    \end{cases}
+\end{align}
+is called the \textbf{fundamental solution} for the Laplace operator $\Delta$. As we shall prove in Chap. 7, the above choice of the constant $C$ is made in order to have:
+\begin{equation} \label{eq:LE59}
+    \Delta \Phi(\vec{x}) = - \delta_n(\vec{x})
+\end{equation}
+where $\delta_n(\vec{x})$ denotes the $n$−dimensional Dirac measure at $\vec{x} = \vec{0}$.
+
+\subsection{3.7, The Green Function}
+
+P155, \cite{salsa2016partial}.
+
+\end{document}
