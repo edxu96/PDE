@@ -1,2 +1,1 @@
-# PDE
-Partial Differential Equations
+# PDE: Partial Differential Equations
